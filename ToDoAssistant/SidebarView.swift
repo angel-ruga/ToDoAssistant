@@ -17,7 +17,7 @@ struct SidebarView: View {
     
     var tagFilters: [Filter] {
         tags.map { tag in
-            Filter(id: tag.id ?? UUID(), name: tag.name ?? "No name", icon: "tag", tag: tag)
+            Filter(id: tag.tagID, name: tag.tagName, icon: "tag", tag: tag)
         }
     }
     
@@ -28,7 +28,10 @@ struct SidebarView: View {
                 ForEach(smartFilters) { filter in
                     NavigationLink(value: filter) {
                         Label(filter.name, systemImage: filter.icon)
+                            //.badge(0)
+                            .badge(filter.tag?.tagActiveToDos.count ?? 0)
                     }
+                    //.badge(1)
                 }
                 //Text("\(tags.count)")
             }

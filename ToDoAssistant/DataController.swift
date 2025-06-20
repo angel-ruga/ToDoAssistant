@@ -68,17 +68,18 @@ class DataController {
         //let modelContext = container.mainContext
 
         for i in 1...5 {
-            let tag = Tag()
-            tag.id = UUID()
-            tag.name = "Tag \(i)"
+            //let tagID = UUID()
+            let tagName = "Tag \(i)"
+            let tag = Tag(name: tagName)
 
             for j in 1...10 {
-                let toDo = ToDo()
-                toDo.title = "ToDo \(i)-\(j)"
-                toDo.content = "Description goes here"
-                toDo.dueDate = Date(timeInterval: Double.random(in: 1...100)*60*60*24, since: .now)
-                toDo.completed = Bool.random()
-                toDo.priority = Int.random(in: 0...2)
+                let toDoTitle = "ToDo \(i)-\(j)"
+                let toDoContent = "Description goes here"
+                let toDoDueDate = Date(timeInterval: Double.random(in: 1...100)*60*60*24, since: .now)
+                let toDoCompleted = Bool.random()
+                let toDoPriority = ToDo.Priority.allCases.randomElement()
+                let toDo = ToDo(title: toDoTitle, content: toDoContent, priority: toDoPriority?.rawValue, completed: toDoCompleted, dueDate: toDoDueDate, tags: [tag])
+                
                 tag.toDos?.append(toDo)
                 
                 modelContext.insert(toDo)
