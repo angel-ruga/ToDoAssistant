@@ -11,12 +11,12 @@ struct Filter: Identifiable, Hashable {
     var id: UUID
     var name: String
     var icon: String
-    var minDueDate = Date.distantFuture
+    var maxDueDate = Date.distantFuture
     //var tags: [Tag]?
     var tag: Tag?
     
     static var all = Filter(id: UUID(), name: "All ToDos", icon: "tray")
-    static var soon = Filter(id: UUID(), name: "ToDos due soon", icon: "clock", minDueDate: .now.addingTimeInterval(86400 * -7))
+    static var soon = Filter(id: UUID(), name: "ToDos due soon", icon: "clock", maxDueDate: .now.addingTimeInterval(86400 * 7))
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

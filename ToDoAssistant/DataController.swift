@@ -16,6 +16,9 @@ class DataController {
     var selectedFilter: Filter? = Filter.all
     
     init(inMemory: Bool = false) {
+        
+        // TODO: Check behavior of core data automaticallyMergesChangesFromParent and mergePolicy translated to SwiftData
+        
         let schema = Schema([ToDo.self, Tag.self])
         let config: ModelConfiguration
         if inMemory {
@@ -75,7 +78,7 @@ class DataController {
             for j in 1...10 {
                 let toDoTitle = "ToDo \(i)-\(j)"
                 let toDoContent = "Description goes here"
-                let toDoDueDate = Date(timeInterval: Double.random(in: 1...100)*60*60*24, since: .now)
+                let toDoDueDate = Date(timeInterval: Double.random(in: -20...20)*60*60*24, since: .now)
                 let toDoCompleted = Bool.random()
                 let toDoPriority = ToDo.Priority.allCases.randomElement()
                 let toDo = ToDo(title: toDoTitle, content: toDoContent, priority: toDoPriority?.rawValue, completed: toDoCompleted, dueDate: toDoDueDate, tags: [tag])

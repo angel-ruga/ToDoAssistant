@@ -50,6 +50,24 @@ class ToDo: Comparable{
         return result.sorted()
     }
     
+    var formattedTimeRemaining: String {
+        if toDoDueDate < Date.now {
+            return "OVERDUE"
+        }
+        
+        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: .now, to: toDoDueDate)
+        let componentValues = [components.year, components.month, components.day, components.hour, components.minute, components.second]
+        let componentStrs = ["year", "month", "day", "hour", "minute", "second"]
+        for idx in (0..<componentValues.count) {
+            if let value = componentValues[idx] {
+                if value != 0 {
+                    return "\(value) \(componentStrs[idx])\(abs(value) > 1 ? "s" : "")"
+                }
+            }
+        }
+        return "unknown time remaining"
+    }
+    
     // Example
     static var example: ToDo {
         let toDo = ToDo()

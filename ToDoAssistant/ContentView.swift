@@ -11,10 +11,49 @@ import SwiftData
 struct ContentView: View {
     
     @Environment(DataController.self) private var dataController
-    @Environment(\.modelContext) private var modelContext
+    
+    // TODO: Add user-defined filtering and sorting
+    
+    var toDos: [ToDo] {
+        let filter = dataController.selectedFilter ?? .all
+        let filterDate = filter.maxDueDate
+        var allToDos: [ToDo]
+        
+        if let tag = filter.tag {
+            allToDos = tag.toDos ?? []
+        } else {
+            let descriptor = FetchDescriptor<ToDo>(
+                predicate: #Predicate {
+                    if let dueDate = $0.dueDate {
+                        return dueDate < filterDate
+                    } else {
+                        return false
+                    }
+                }
+            )
+            allToDos = (try? dataController.modelContext.fetch(descriptor)) ?? []
+        }
+
+        return allToDos.sorted()
+    }
     
     var body: some View {
-        Text("Content")
+        List {
+            ForEach(toDos) { toDo in
+                ToDoRow(toDo: toDo)
+            }
+            .onDelete(perform: delete)
+        }
+        .navigationTitle("ToDos")
+        //.toolbarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    func delete(_ offsets: IndexSet) {
+        for offset in offsets {
+            let item = toDos[offset]
+            dataController.delete(item)
+        }
     }
 }
 
