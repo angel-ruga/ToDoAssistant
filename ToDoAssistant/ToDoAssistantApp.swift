@@ -11,6 +11,8 @@ import SwiftUI
 @main
 struct ToDoAssistantApp: App {
     @State var dataController = DataController()
+    @Environment(\.scenePhase) var scenePhase
+    
     var body: some Scene {
         WindowGroup {
             NavigationSplitView {
@@ -22,6 +24,11 @@ struct ToDoAssistantApp: App {
             }
             .environment(\.modelContext, dataController.modelContext)
             .environment(dataController)
+            .onChange(of: scenePhase, initial: false) {
+                if scenePhase != .active {
+                    dataController.save()
+                }
+            }
         }
     }
 }

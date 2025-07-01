@@ -17,6 +17,8 @@ class DataController {
     
     var selectedToDo: ToDo?
     
+    private var saveTask: Task<Void, Error>?
+    
     init(inMemory: Bool = false) {
         
         // TODO: Check behavior of core data automaticallyMergesChangesFromParent and mergePolicy translated to SwiftData
@@ -104,5 +106,16 @@ class DataController {
         let difference = allTagsSet.symmetricDifference(toDo.toDoTags)
 
         return difference.sorted()
+    }
+    
+    func queueSave() {
+        // Cancel the previous save task if it already was in progress
+        saveTask?.cancel()
+
+        saveTask = Task { @MainActor in
+            try await Task.sleep(for: .seconds(3))
+            //This save will not be executed if the previous task threw an error
+            save()
+        }
     }
 }

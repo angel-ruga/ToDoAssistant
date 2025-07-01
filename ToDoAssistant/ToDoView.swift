@@ -74,6 +74,12 @@ struct ToDoView: View {
             }
         }
         .disabled(toDo.isDeleted)
+        .onChange(of: toDo.hasChanges, initial: false) {
+            if (toDo.hasChanges) {
+                dataController.queueSave()
+            }
+        }
+         
     }
 }
 
