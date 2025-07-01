@@ -46,8 +46,11 @@ class ToDo: Comparable{
         dueDate ?? .distantFuture
     }
     var toDoTags: [Tag] {
-        let result = tags ?? []
-        return result.sorted()
+        get {
+            let result = tags ?? []
+            return result.sorted()
+        }
+        set { tags = newValue }
     }
     
     var formattedTimeRemaining: String {
@@ -66,6 +69,22 @@ class ToDo: Comparable{
             }
         }
         return "unknown time remaining"
+    }
+    
+    var toDoStatus: String {
+        if toDoCompleted {
+            return "Done"
+        } else {
+            return "Pending"
+        }
+    }
+    
+    var toDoTagsList: String {
+        if toDoTags.count == 0 {
+            return "No tags"
+        } else {
+            return toDoTags.map(\.tagName).formatted()
+        }
     }
     
     // Example
@@ -97,5 +116,9 @@ class ToDo: Comparable{
         } else {
             return left < right
         }
+    }
+    
+    public func removeTag(_ tag: Tag) -> Void {
+        toDoTags.removeAll(where: {$0 == tag})
     }
 }

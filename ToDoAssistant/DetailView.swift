@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct DetailView: View {
+    @Environment(DataController.self) private var dataController
+    
     var body: some View {
-        Text("Detail")
+        VStack {
+            if let toDo = dataController.selectedToDo {
+                ToDoView(toDo: toDo)
+            } else {
+                NoToDoView()
+            }
+        }
+        .navigationTitle("Details")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

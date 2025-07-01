@@ -15,6 +15,8 @@ class DataController {
     
     var selectedFilter: Filter? = Filter.all
     
+    var selectedToDo: ToDo?
+    
     init(inMemory: Bool = false) {
         
         // TODO: Check behavior of core data automaticallyMergesChangesFromParent and mergePolicy translated to SwiftData
@@ -92,5 +94,15 @@ class DataController {
         }
 
         try? modelContext.save()
+    }
+    
+    func missingTags(from toDo: ToDo) -> [Tag] {
+        let request = FetchDescriptor<Tag>()
+        let allTags = (try? modelContext.fetch(request)) ?? []
+
+        let allTagsSet = Set(allTags)
+        let difference = allTagsSet.symmetricDifference(toDo.toDoTags)
+
+        return difference.sorted()
     }
 }

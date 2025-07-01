@@ -13,6 +13,7 @@ struct ContentView: View {
     @Environment(DataController.self) private var dataController
     
     // TODO: Add user-defined filtering and sorting
+    // TODO: Try a solution with query
     
     var toDos: [ToDo] {
         let filter = dataController.selectedFilter ?? .all
@@ -38,7 +39,9 @@ struct ContentView: View {
     }
     
     var body: some View {
-        List {
+        @Bindable var dataController = dataController
+        
+        List(selection: $dataController.selectedToDo) {
             ForEach(toDos) { toDo in
                 ToDoRow(toDo: toDo)
             }

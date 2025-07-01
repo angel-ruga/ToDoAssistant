@@ -24,7 +24,7 @@ struct ToDoRow: View {
                         .font(.headline)
                         .lineLimit(1) //lineLimit(2...2) for two
 
-                    Text("No tags")
+                    Text(toDo.toDoTagsList)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                 }
