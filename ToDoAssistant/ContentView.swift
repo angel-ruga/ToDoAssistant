@@ -12,47 +12,24 @@ struct ContentView: View {
     
     @Environment(DataController.self) private var dataController
     
-    // TODO: Add user-defined filtering and sorting
-    // TODO: Try a solution with query
-    
-    var toDos: [ToDo] {
-        let filter = dataController.selectedFilter ?? .all
-        let filterDate = filter.maxDueDate
-        var allToDos: [ToDo]
-        
-        if let tag = filter.tag {
-            allToDos = tag.toDos ?? []
-        } else {
-            let descriptor = FetchDescriptor<ToDo>(
-                predicate: #Predicate {
-                    if let dueDate = $0.dueDate {
-                        return dueDate < filterDate
-                    } else {
-                        return false
-                    }
-                }
-            )
-            allToDos = (try? dataController.modelContext.fetch(descriptor)) ?? []
-        }
-
-        return allToDos.sorted()
-    }
-    
     var body: some View {
         @Bindable var dataController = dataController
         
         List(selection: $dataController.selectedToDo) {
-            ForEach(toDos) { toDo in
+            ForEach(dataController.toDosForSelectedFilter()) { toDo in
                 ToDoRow(toDo: toDo)
             }
             .onDelete(perform: delete)
         }
+        .searchable(text: $dataController.filterText, prompt: "Filter ToDos")
         .navigationTitle("ToDos")
         //.toolbarTitleDisplayMode(.inline)
         .navigationBarTitleDisplayMode(.inline)
     }
     
     func delete(_ offsets: IndexSet) {
+        let toDos = dataController.toDosForSelectedFilter()
+        
         for offset in offsets {
             let item = toDos[offset]
             dataController.delete(item)

@@ -19,6 +19,8 @@ class DataController {
     
     private var saveTask: Task<Void, Error>?
     
+    var filterText = ""
+    
     init(inMemory: Bool = false) {
         
         // TODO: Check behavior of core data automaticallyMergesChangesFromParent and mergePolicy translated to SwiftData
@@ -117,5 +119,83 @@ class DataController {
             //This save will not be executed if the previous task threw an error
             save()
         }
+    }
+    
+    // TODO: Add user-defined filtering and sorting
+    func toDosForSelectedFilter() -> [ToDo] {
+        let filter = selectedFilter ?? .all
+        let filterDate = filter.maxDueDate
+        
+        // Predicates
+        
+        var enableMatchesTag: Bool
+        let tagID: UUID // SwiftData predicates do not let us use another model (in this case, Tag), apparently.
+        if let tag = filter.tag {
+            enableMatchesTag = true
+            tagID = tag.tagID
+        } else {
+            enableMatchesTag = false
+            tagID = UUID()
+        }
+        let matchesTag = #Predicate<ToDo> { toDo in
+            if let tags = toDo.tags {
+                return tags.contains(where: {
+                    if let toDoTagID = $0.id {
+                        return toDoTagID == tagID
+                    } else {
+                        return false
+                    }
+                })
+            } else {
+                return false
+            }
+        }
+        
+        let hasMaxDueDate = #Predicate<ToDo> { toDo in
+            if let dueDate = toDo.dueDate {
+                return (dueDate <= filterDate)
+            } else {
+                return false
+            }
+        }
+        
+        let trimmedFilterText = self.filterText.trimmingCharacters(in: .whitespaces)
+        let constantFilterText = self.filterText
+        let matchesSearch = #Predicate<ToDo> { toDo in
+            if trimmedFilterText.isEmpty == false {
+                if let title = toDo.title {
+                    if let content = toDo.content {
+                        return title.localizedStandardContains(constantFilterText) || content.localizedStandardContains(constantFilterText)
+                    } else {
+                        return title.localizedStandardContains(constantFilterText)
+                    }
+                } else {
+                    return false
+                }
+            } else {
+                return true
+            }
+        }
+        
+        var allToDos: [ToDo]
+        
+        let descriptor = FetchDescriptor<ToDo>(
+            predicate: #Predicate { toDo in
+                hasMaxDueDate.evaluate(toDo)
+                && matchesSearch.evaluate(toDo)
+                && (enableMatchesTag ? matchesTag.evaluate(toDo) : true)
+            }
+        )
+        allToDos = (try? modelContext.fetch(descriptor)) ?? []
+        /*
+        // Tag filtering here, because SwiftData cannot handle complex predicates yet.
+        if let tag = filter.tag {
+            allToDos = allToDos.filter { toDo in
+                toDo.toDoTags.contains(where: { tag == $0 } )
+            }
+        }
+         // In the end, it could handle it by not using another model (Tag), but its id property.
+        */
+        return allToDos.sorted()
     }
 }
