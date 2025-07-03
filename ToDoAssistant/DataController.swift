@@ -8,8 +8,20 @@
 import SwiftData
 import Foundation
 
+enum SortType: String {
+    case dueDate = "dueDate"
+    case alphabetical = "alphabetical"
+}
+
+enum Status: String {
+    case all = "All"
+    case done = "Done"
+    case notDone = "Not Done"
+}
+
 @Observable @MainActor
 class DataController {
+    
     private let container: ModelContainer
     let modelContext: ModelContext
     
@@ -19,7 +31,14 @@ class DataController {
     
     private var saveTask: Task<Void, Error>?
     
+    // Filtering
     var filterText = ""
+    var filterEnabled = false
+    var filterPriority = -1
+    var filterStatus = Status.all
+    var sortType = SortType.alphabetical
+    var sortDueSoonFirst = true
+    var sortAZ = true
     
     init(inMemory: Bool = false) {
         
@@ -100,6 +119,7 @@ class DataController {
         try? modelContext.save()
     }
     
+    // Get all the existing tags not on the provided ToDo
     func missingTags(from toDo: ToDo) -> [Tag] {
         let request = FetchDescriptor<Tag>()
         let allTags = (try? modelContext.fetch(request)) ?? []
@@ -126,7 +146,9 @@ class DataController {
         let filter = selectedFilter ?? .all
         let filterDate = filter.maxDueDate
         
+        ///-----------------------------
         // Predicates
+        ///-----------------------------
         
         var enableMatchesTag: Bool
         let tagID: UUID // SwiftData predicates do not let us use another model (in this case, Tag), apparently.
@@ -177,25 +199,92 @@ class DataController {
             }
         }
         
-        var allToDos: [ToDo]
-        
-        let descriptor = FetchDescriptor<ToDo>(
-            predicate: #Predicate { toDo in
-                hasMaxDueDate.evaluate(toDo)
-                && matchesSearch.evaluate(toDo)
-                && (enableMatchesTag ? matchesTag.evaluate(toDo) : true)
-            }
-        )
-        allToDos = (try? modelContext.fetch(descriptor)) ?? []
-        /*
-        // Tag filtering here, because SwiftData cannot handle complex predicates yet.
-        if let tag = filter.tag {
-            allToDos = allToDos.filter { toDo in
-                toDo.toDoTags.contains(where: { tag == $0 } )
+        let selfFilterPriority = self.filterPriority // Predicates do not like external objects that are not constant
+        let hasPriority = #Predicate<ToDo> { toDo in
+            if let priority = toDo.priority {
+                if (selfFilterPriority == -1) {
+                    return true
+                } else {
+                    return (priority == selfFilterPriority)
+                }
+            } else {
+                return false
             }
         }
-         // In the end, it could handle it by not using another model (Tag), but its id property.
-        */
-        return allToDos.sorted()
+        
+        let selfFilterStatus = self.filterStatus // Predicates do not like external objects that are not constant
+        let selfFilterStatusDone = selfFilterStatus == Status.done
+        let selfFilterStatusNotDone = selfFilterStatus == Status.notDone
+        let hasStatus = #Predicate<ToDo> { toDo in
+            if let completed = toDo.completed {
+                if (selfFilterStatusDone == true) { // It is possible that Predicates do not like single Bool objects as expressions. Need more testing.
+                    return completed == true
+                } else if (selfFilterStatusNotDone == true) {
+                    return completed == false
+                } else {
+                    return true
+                }
+                //return (selfFilterStatus == Status.done ? completed : selfFilterStatus == Status.notDone ? !completed : true )
+            } else {
+                return false
+            }
+        }
+        
+        // Need to split final predicate in parts because the compiler does not like large expressions
+        let selfFilterEnabled = self.filterEnabled // Predicates do not like external objects that are not constant
+        let finalPredicate1 = #Predicate<ToDo> { toDo in
+            hasMaxDueDate.evaluate(toDo)
+            && matchesSearch.evaluate(toDo)
+            && (enableMatchesTag ? matchesTag.evaluate(toDo) : true)
+        }
+        let finalPredicate2 = #Predicate<ToDo> { toDo in
+            (selfFilterEnabled ? hasPriority.evaluate(toDo) : true)
+            && (selfFilterEnabled ? hasStatus.evaluate(toDo) : true)
+        }
+        let finalPredicate = #Predicate<ToDo> { toDo in
+            finalPredicate1.evaluate(toDo)
+            && finalPredicate2.evaluate(toDo)
+        }
+        
+        ///-----------------------------
+        // Sort Descriptor
+        ///-----------------------------
+        
+        let azSort = SortDescriptor<ToDo>(
+            \ToDo.title,
+             order: self.sortAZ ? .forward : .reverse
+        )
+        
+        let dueSoonSort = SortDescriptor<ToDo>(
+            \ToDo.dueDate,
+             order: self.sortDueSoonFirst ? .forward : .reverse
+        )
+        
+        let finalSort: [SortDescriptor<ToDo>]
+        
+        switch (self.sortType) {
+        case SortType.alphabetical:
+            finalSort = [azSort, dueSoonSort]
+        case SortType.dueDate:
+            finalSort = [dueSoonSort, azSort]
+        }
+        
+        ///-----------------------------
+        // Fetch Descriptor
+        ///-----------------------------
+        
+        let descriptor = FetchDescriptor<ToDo>(
+            predicate: finalPredicate,
+            sortBy: finalSort
+        )
+        
+        ///-----------------------------
+        // Fetch
+        ///-----------------------------
+        
+        var allToDos: [ToDo]
+        allToDos = (try? modelContext.fetch(descriptor)) ?? []
+        
+        return allToDos
     }
 }

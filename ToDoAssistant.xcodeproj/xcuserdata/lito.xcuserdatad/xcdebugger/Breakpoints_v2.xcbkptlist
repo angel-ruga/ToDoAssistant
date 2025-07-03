@@ -36,5 +36,53 @@
             landmarkType = "37">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C5A0743-461E-4BA9-9C6F-F8616A4D3344"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../var/folders/gh/rpx7p24j4j5ffw9fnnd091h80000gn/T/swift-generated-sources/@__swiftmacro_13ToDoAssistant0025DataControllerswift_jqFBgfMX213_24_9PredicatefMf3_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "toDosForSelectedFilter()"
+            landmarkType = "37">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2D6C59D2-4936-4AF1-A1A1-8EAA28C1A32C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../var/folders/gh/rpx7p24j4j5ffw9fnnd091h80000gn/T/swift-generated-sources/@__swiftmacro_13ToDoAssistant0025DataControllerswift_jqFBgfMX223_23_9PredicatefMf4_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "toDosForSelectedFilter()"
+            landmarkType = "37">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7C1BB334-9BC1-4815-A7CC-665241C7E319"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../var/folders/gh/rpx7p24j4j5ffw9fnnd091h80000gn/T/swift-generated-sources/@__swiftmacro_13ToDoAssistant0025DataControllerswift_jqFBgfMX232_23_9PredicatefMf4_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "toDosForSelectedFilter()"
+            landmarkType = "37">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
