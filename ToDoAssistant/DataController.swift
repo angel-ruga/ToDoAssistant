@@ -313,4 +313,35 @@ class DataController {
         modelContext.insert(tag)
         save()
     }
+    
+    func count<T>(for fetchDescriptor: FetchDescriptor<T>) -> Int {
+        return (try? modelContext.fetchCount(fetchDescriptor)) ?? 0
+    }
+
+    func hasEarned(award: Award) -> Bool {
+        switch award.criterion {
+        case "ToDos":
+            // returns true if they added a certain number of ToDos
+            let fetchDescriptor = FetchDescriptor<ToDo>()
+            let awardCount = count(for: fetchDescriptor)
+            return awardCount >= award.value
+
+        case "done":
+            // returns true if they completed a certain number of ToDos
+            let fetchDescriptor = FetchDescriptor<ToDo>(predicate: #Predicate<ToDo> { toDo in toDo.completed == true })
+            let awardCount = count(for: fetchDescriptor)
+            return awardCount >= award.value
+
+        case "tags":
+            // return true if they created a certain number of tags
+            let fetchDescriptor = FetchDescriptor<Tag>()
+            let awardCount = count(for: fetchDescriptor)
+            return awardCount >= award.value
+
+        default:
+            // an unknown award criterion; this should never be allowed
+            // fatalError("Unknown award criterion: \(award.criterion)")
+            return false
+        }
+    }
 }
