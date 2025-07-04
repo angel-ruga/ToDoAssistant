@@ -66,6 +66,7 @@ class DataController {
     }()
     
     func save() {
+        saveTask?.cancel() // Just in case this method was called in .onSubmit(dataController.save)
         if modelContext.hasChanges {
             try? modelContext.save()
         }

@@ -90,6 +90,25 @@ struct ToDoView: View {
                 dataController.queueSave()
             }
         }
+        .onSubmit(dataController.save)
+        .toolbar {
+            Menu {
+                Button {
+                    UIPasteboard.general.string = toDo.toDoTitle
+                } label: {
+                    Label("Copy ToDo Title", systemImage: "doc.on.doc")
+                }
+
+                Button {
+                    toDo.toDoCompleted.toggle()
+                    dataController.save()
+                } label: {
+                    Label(toDo.toDoCompleted ? "Re-open ToDo" : "Complete ToDo", systemImage: "bubble.left.and.exclamationmark.bubble.right")
+                }
+            } label: {
+                Label("Actions", systemImage: "ellipsis.circle")
+            }
+        }
          
     }
 }
