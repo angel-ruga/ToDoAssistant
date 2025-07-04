@@ -287,4 +287,30 @@ class DataController {
         
         return allToDos
     }
+    
+    func newToDo() {
+        let toDo = ToDo()
+        toDo.toDoTitle = "New ToDo"
+        toDo.toDoDueDate = .now
+        toDo.toDoPriority = .medium
+        toDo.toDoCompleted = false
+        toDo.toDoContent = ""
+        
+        if let tag = selectedFilter?.tag {
+            toDo.toDoTags.append(tag)
+        }
+        
+        modelContext.insert(toDo)
+        save()
+        
+        selectedToDo = toDo
+    }
+    
+    func newTag() {
+        let tag = Tag()
+        tag.tagID = UUID()
+        tag.tagName = "New tag"
+        modelContext.insert(tag)
+        save()
+    }
 }

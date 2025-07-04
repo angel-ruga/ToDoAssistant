@@ -15,9 +15,7 @@ struct NoToDoView: View {
             .font(.title)
             .foregroundStyle(.secondary)
         
-        Button("New ToDo") {
-            // make a new issue
-        }
+        Button("New ToDo", action: dataController.newToDo)
     }
 }
 

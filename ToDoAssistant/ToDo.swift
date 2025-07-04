@@ -40,10 +40,12 @@ class ToDo: Comparable{
         set { priority = newValue.rawValue }
     }
     var toDoCompleted: Bool {
-        completed ?? false
+        get { completed ?? false }
+        set { completed = newValue }
     }
     var toDoDueDate: Date {
-        dueDate ?? .distantFuture
+        get { dueDate ?? .distantFuture }
+        set { dueDate = newValue }
     }
     var toDoTags: [Tag] {
         get {

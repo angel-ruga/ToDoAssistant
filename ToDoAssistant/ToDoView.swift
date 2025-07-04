@@ -10,6 +10,7 @@ import SwiftUI
 struct ToDoView: View {
     @State var toDo: ToDo
     @Environment(DataController.self) private var dataController
+    @State var selectingDate = false
     
     var body: some View {
         Form {
@@ -18,8 +19,18 @@ struct ToDoView: View {
                     TextField("Title", text: $toDo.toDoTitle, prompt: Text("Enter the ToDo title here"))
                         .font(.title)
 
-                    Text("**Due Date:** \(toDo.toDoDueDate.formatted(date: .long, time: .shortened))")
-                        .foregroundStyle(.secondary)
+                    Button("**Due Date:** \(toDo.toDoDueDate.formatted(date: .long, time: .shortened))") {
+                        selectingDate.toggle()
+                    }
+                    
+                    if (selectingDate) {
+                        DatePicker(
+                            "Due Date",
+                            selection: $toDo.toDoDueDate,
+                            displayedComponents: [.date, .hourAndMinute]
+                        )
+                        .datePickerStyle(.graphical)
+                    }
                     
                     Text("**Status:** \(toDo.toDoStatus)")
                         .foregroundStyle(.secondary)

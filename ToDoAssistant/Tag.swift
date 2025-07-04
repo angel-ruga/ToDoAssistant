@@ -18,10 +18,12 @@ class Tag: Comparable {
     
     // Computed properties to easily get and set without optional manipulation.
     var tagID: UUID {
-        id ?? UUID()
+        get { id ?? UUID()}
+        set { id = newValue }
     }
     var tagName: String {
-        name ?? ""
+        get { name ?? "" }
+        set { name = newValue }
     }
     
     var tagActiveToDos: [ToDo] {

@@ -23,6 +23,11 @@ struct ContentView: View {
         }
         .searchable(text: $dataController.filterText, prompt: "Filter ToDos")
         .toolbar {
+            
+            Button(action: dataController.newToDo) {
+                Label("New ToDo", systemImage: "square.and.pencil")
+            }
+            
             Menu {
                 Button(dataController.filterEnabled ? "Turn Filter Off" : "Turn Filter On") {
                     dataController.filterEnabled.toggle()
