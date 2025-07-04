@@ -44,6 +44,7 @@ struct ToDoRow: View {
                 .foregroundStyle(.secondary)
             }
         }
+        .accessibilityHint(toDo.toDoPriority == .high ? "High priority" : "")
     }
 }
 
