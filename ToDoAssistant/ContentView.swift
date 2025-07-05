@@ -76,7 +76,7 @@ struct ContentView: View {
 
                 Menu {
                     Picker("Status", selection: $dataController.filterStatus) {
-                        Text("All").tag(Status.all)
+                        Text("All status").tag(Status.all)
                         Text("Done").tag(Status.done)
                         Text("Not done").tag(Status.notDone)
                     }
@@ -91,7 +91,7 @@ struct ContentView: View {
                 
                 Menu {
                     Picker("Priority", selection: $dataController.filterPriority) {
-                        Text("All").tag(-1)
+                        Text("All priorities").tag(-1)
                         Text("Low").tag(0)
                         Text("Medium").tag(1)
                         Text("High").tag(2)

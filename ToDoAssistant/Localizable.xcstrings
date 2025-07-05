@@ -1,0 +1,384 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "**Due Date:** %@" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Fecha Límite:** %@"
+          }
+        }
+      }
+    },
+    "**Status:** %@" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Estado:** %@"
+          }
+        }
+      }
+    },
+    "%@" : {
+
+    },
+    "^[%lld ToDo](inflect: true)" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld Tarea](inflect: true)"
+          }
+        }
+      }
+    },
+    "A to Z" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A a la Z"
+          }
+        }
+      }
+    },
+    "Actions" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acciones"
+          }
+        }
+      }
+    },
+    "ADD SAMPLES" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AÑADIR MUESTRAS"
+          }
+        }
+      }
+    },
+    "Add tag" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir Etiqueta"
+          }
+        }
+      }
+    },
+    "Add Tags" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir Etiquetas"
+          }
+        }
+      }
+    },
+    "All priorities" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas"
+          }
+        }
+      }
+    },
+    "All status" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos"
+          }
+        }
+      }
+    },
+    "Alphabetical" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alfabético"
+          }
+        }
+      }
+    },
+    "Awards" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premios"
+          }
+        }
+      }
+    },
+    "Basic Information" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Información Básica"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
+    },
+    "Complete ToDo" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completar Tarea"
+          }
+        }
+      }
+    },
+    "Copy ToDo Title" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiar Título de Tarea"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
+          }
+        }
+      }
+    },
+    "Description" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción"
+          }
+        }
+      }
+    },
+    "Details" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalles"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hecha"
+          }
+        }
+      }
+    },
+    "DONE" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HECHA"
+          }
+        }
+      }
+    },
+    "Due Date" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha Límite"
+          }
+        }
+      }
+    },
+    "Due soon first" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próximas a vencer primero"
+          }
+        }
+      }
+    },
+    "Due soon last" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próximas a vencer al último"
+          }
+        }
+      }
+    },
+    "Enter the ToDo description here" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingrese la descripción de la tarea aquí"
+          }
+        }
+      }
+    },
+    "Enter the ToDo title here" : {
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingrese el título de la tarea aquí"
+          }
+        }
+      }
+    },
+    "Filter" : {
+
+    },
+    "Filter ToDos" : {
+
+    },
+    "Filters" : {
+
+    },
+    "High" : {
+
+    },
+    "High priority" : {
+
+    },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "Locked" : {
+
+    },
+    "Low" : {
+
+    },
+    "Medium" : {
+
+    },
+    "New name" : {
+
+    },
+    "New ToDo" : {
+
+    },
+    "No ToDo Selected" : {
+
+    },
+    "Not done" : {
+
+    },
+    "OK" : {
+
+    },
+    "Priority" : {
+
+    },
+    "Re-open ToDo" : {
+
+    },
+    "Rename" : {
+
+    },
+    "Rename tag" : {
+
+    },
+    "Show awards" : {
+
+    },
+    "Smart Filters" : {
+
+    },
+    "Sort by" : {
+
+    },
+    "Sort By" : {
+
+    },
+    "Sort Order" : {
+
+    },
+    "Status" : {
+
+    },
+    "Tags" : {
+
+    },
+    "Title" : {
+
+    },
+    "ToDos" : {
+
+    },
+    "Turn Filter Off" : {
+
+    },
+    "Turn Filter On" : {
+
+    },
+    "Unlocked: %@" : {
+
+    },
+    "Z to A" : {
+
+    }
+  },
+  "version" : "1.0"
+}
