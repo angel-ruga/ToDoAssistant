@@ -19,9 +19,12 @@ enum Status: String {
     case notDone = "Not Done"
 }
 
+/// An environment singleton responsible for managing our SwiftData models, including handling, saving,
+/// counting fetch requests, tracking awards, and dealing with sample data.
 @Observable @MainActor
 class DataController {
-
+    
+    /// The lone SwiftData container used to store all our data.
     private let container: ModelContainer
     let modelContext: ModelContext
 
@@ -39,13 +42,21 @@ class DataController {
     var sortType = SortType.alphabetical
     var sortDueSoonFirst = true
     var sortAZ = true
-
+    
+    /// Initializes a data controller, either in memory (for temporary use such as testing and previewing),
+    /// or on permanent storage (for use in regular app runs.)
+    ///
+    /// Defaults to permanent storage.
+    /// - Parameter inMemory: Whether to store this data in temporary memory or not.
     init(inMemory: Bool = false) {
 
         // Gotta check behavior of CoreData automaticallyMergesChangesFromParent and mergePolicy translated to SwiftData
 
         let schema = Schema([ToDo.self, Tag.self])
         let config: ModelConfiguration
+        // For testing and previewing purposes, we create a
+        // temporary, in-memory database so our data is
+        // destroyed after the app finishes running.
         if inMemory {
             config = ModelConfiguration("MyToDos", schema: schema, isStoredInMemoryOnly: true)
         } else {
@@ -64,7 +75,9 @@ class DataController {
         dataController.createSampleData()
         return dataController
     }()
-
+    
+    /// Saves our SwiftData context iff there are changes. This silently ignores
+    /// any errors caused by saving, but this should be fine because all our attributes are optional.
     func save() {
         saveTask?.cancel() // Just in case this method was called in .onSubmit(dataController.save)
         if modelContext.hasChanges {
@@ -164,7 +177,10 @@ class DataController {
 
         return finalSort
     }
-
+    
+    /// Runs a fetch with various predicates and sort descriptors that filter and order the user's ToDos based
+    /// on tag, title and content text, date, priority, and completion status.
+    /// - Returns: An array of all matching ToDos.
     func toDosForSelectedFilter() -> [ToDo] {
         let finalPredicate = predicateForSelectedFilter()
         let finalSortDescriptor = sortDescriptorForSelectedFilter()
@@ -187,6 +203,9 @@ class DataController {
         toDo.toDoCompleted = false
         toDo.toDoContent = ""
 
+        // If we're currently browsing a user-created tag, immediately
+        // add this new issue to the tag otherwise it won't appear in
+        // the list of issues they see.
         if let tag = selectedFilter?.tag {
             toDo.toDoTags.append(tag)
         }
