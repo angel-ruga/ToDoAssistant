@@ -15,7 +15,7 @@ class ToDo: Comparable {
         case medium = 1
         case high = 2
     }
-    
+
     // Stored properties. Need to be optional for iCloud compatibility.
     var title: String?
     var content: String?
@@ -23,7 +23,7 @@ class ToDo: Comparable {
     var completed: Bool?
     var dueDate: Date?
     var tags: [Tag]?
-    
+
     // Computed properties to easily get and set without optional manipulation.
     var toDoTitle: String {
         get { title ?? "" }
@@ -52,12 +52,12 @@ class ToDo: Comparable {
         }
         set { tags = newValue }
     }
-    
+
     var formattedTimeRemaining: String {
         if toDoDueDate < Date.now {
             return "OVERDUE"
         }
-        
+
         let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: .now, to: toDoDueDate) // swiftlint:disable:this line_length
         let componentValues = [components.year, components.month, components.day, components.hour, components.minute, components.second] // swiftlint:disable:this line_length
         let componentStrs = ["year", "month", "day", "hour", "minute", "second"]
@@ -70,7 +70,7 @@ class ToDo: Comparable {
         }
         return "unknown time remaining"
     }
-    
+
     var toDoStatus: String {
         if toDoCompleted {
             return "Done"
@@ -78,7 +78,7 @@ class ToDo: Comparable {
             return "Pending"
         }
     }
-    
+
     var toDoTagsList: String {
         if toDoTags.count == 0 {
             return "No tags"
@@ -86,7 +86,7 @@ class ToDo: Comparable {
             return toDoTags.map(\.tagName).formatted()
         }
     }
-    
+
     // Example
     static var example: ToDo {
         let toDo = ToDo()
@@ -96,7 +96,7 @@ class ToDo: Comparable {
         toDo.dueDate = .distantFuture
         return toDo
     }
-    
+
     init(title: String? = nil, content: String? = nil, priority: Int? = nil, completed: Bool? = false, dueDate: Date? = nil, tags: [Tag]? = nil) { // swiftlint:disable:this line_length
         self.title = title
         self.content = content
@@ -105,7 +105,7 @@ class ToDo: Comparable {
         self.dueDate = dueDate
         self.tags = tags
     }
-    
+
     // Comparable conformance
     public static func < (lhs: ToDo, rhs: ToDo) -> Bool {
         let left = lhs.toDoTitle.localizedLowercase
@@ -117,11 +117,11 @@ class ToDo: Comparable {
             return left < right
         }
     }
-    
+
     public func removeTag(_ tag: Tag) {
         toDoTags.removeAll(where: {$0 == tag})
     }
-    
+
     static func priority2str (_ priority: Priority) -> String {
         switch priority {
         case .low:

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     @Environment(DataController.self) private var dataController
-    
+
     var body: some View {
         VStack {
             if let toDo = dataController.selectedToDo {

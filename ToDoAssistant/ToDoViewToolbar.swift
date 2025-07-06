@@ -10,11 +10,11 @@ import SwiftUI
 struct ToDoViewToolbar: View {
     @Environment(DataController.self) private var dataController
     @State var toDo: ToDo
-    
+
     var openCloseButtonText: LocalizedStringKey {
         toDo.toDoCompleted ? "Re-open ToDo" : "Complete ToDo"
     }
-    
+
     var body: some View {
         Menu {
             Button {
@@ -29,13 +29,13 @@ struct ToDoViewToolbar: View {
             } label: {
                 Label(openCloseButtonText, systemImage: "bubble.left.and.exclamationmark.bubble.right")
             }
-            
+
             Divider()
 
             Section("Tags") {
                 TagsMenuView(toDo: toDo)
             }
-            
+
         } label: {
             Label("Actions", systemImage: "ellipsis.circle")
         }

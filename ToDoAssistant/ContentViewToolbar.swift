@@ -9,15 +9,15 @@ import SwiftUI
 
 struct ContentViewToolbar: View {
     @Environment(DataController.self) private var dataController
-    
+
     var body: some View {
-        
+
         @Bindable var dataController = dataController
-        
+
         Button(action: dataController.newToDo) {
             Label("New ToDo", systemImage: "square.and.pencil")
         }
-        
+
         Menu {
             Button(dataController.filterEnabled ? "Turn Filter Off" : "Turn Filter On") {
                 dataController.filterEnabled.toggle()
@@ -35,7 +35,7 @@ struct ContentViewToolbar: View {
                 Text(dataController.sortType == SortType.alphabetical ? "Alphabetical" : "Due Date")
                 Image(systemName: "arrow.up.arrow.down")
             }
-            
+
             Menu {
                 if dataController.sortType == .dueDate {
                     Picker("Sort Order", selection: $dataController.sortDueSoonFirst) {
@@ -57,9 +57,9 @@ struct ContentViewToolbar: View {
                 }
                 Image(systemName: "arrow.up.arrow.down")
             }
-            
+
             Divider()
-            
+
             Menu {
                 Picker("Status", selection: $dataController.filterStatus) {
                     Text("All status").tag(Status.all)
@@ -72,7 +72,7 @@ struct ContentViewToolbar: View {
                 Image(systemName: "checkmark")
             }
             .disabled(dataController.filterEnabled == false)
-            
+
             Menu {
                 Picker("Priority", selection: $dataController.filterPriority) {
                     Text("All priorities").tag(-1)
@@ -86,7 +86,7 @@ struct ContentViewToolbar: View {
                 Image(systemName: "exclamationmark")
             }
             .disabled(dataController.filterEnabled == false)
-            
+
         } label: {
             Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
                 .symbolVariant(dataController.filterEnabled ? .fill : .none)

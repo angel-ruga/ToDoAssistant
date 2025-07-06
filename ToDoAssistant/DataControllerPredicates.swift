@@ -13,7 +13,7 @@ extension DataController {
         let filter = selectedFilter ?? .all
         var enableMatchesTag: Bool
         let tagID: UUID // SwiftData predicates do not let us use another model (in this case, Tag), apparently.
-        
+
         if let tag = filter.tag {
             enableMatchesTag = true
             tagID = tag.tagID
@@ -21,7 +21,7 @@ extension DataController {
             enableMatchesTag = false
             tagID = UUID()
         }
-        
+
         let matchesTag = #Predicate<ToDo> { toDo in
             if enableMatchesTag == true {
                 if let tags = toDo.tags {
@@ -39,14 +39,14 @@ extension DataController {
                 return true
             }
         }
-        
+
         return matchesTag
     }
-    
+
     func hasMaxDueDatePredicate() -> Predicate<ToDo> {
         let filter = selectedFilter ?? .all
         let filterDate = filter.maxDueDate
-        
+
         let hasMaxDueDate = #Predicate<ToDo> { toDo in
             if let dueDate = toDo.dueDate {
                 return (dueDate <= filterDate)
@@ -54,14 +54,14 @@ extension DataController {
                 return false
             }
         }
-        
+
         return hasMaxDueDate
     }
-    
+
     func matchesSearchPredicate() -> Predicate<ToDo> {
         let trimmedFilterText = self.filterText.trimmingCharacters(in: .whitespaces)
         let constantFilterText = self.filterText
-        
+
         let matchesSearch = #Predicate<ToDo> { toDo in
             if trimmedFilterText.isEmpty == false {
                 if let title = toDo.title {
@@ -78,13 +78,13 @@ extension DataController {
                 return true
             }
         }
-        
+
         return matchesSearch
     }
-    
+
     func hasPriorityPredicate() -> Predicate<ToDo> {
         let selfFilterPriority = self.filterPriority // Predicates do not like external objects that are not constant
-        
+
         let hasPriority = #Predicate<ToDo> { toDo in
             if let priority = toDo.priority {
                 if selfFilterPriority == -1 {
@@ -96,15 +96,15 @@ extension DataController {
                 return false
             }
         }
-        
+
         return hasPriority
     }
-    
+
     func hasStatusPredicate() -> Predicate<ToDo> {
         let selfFilterStatus = self.filterStatus // Predicates do not like external objects that are not constant
         let selfFilterStatusDone = selfFilterStatus == Status.done
         let selfFilterStatusNotDone = selfFilterStatus == Status.notDone
-        
+
         let hasStatus = #Predicate<ToDo> { toDo in
             if let completed = toDo.completed {
                 if selfFilterStatusDone == true { // Predicates might not like single Bool objects as expressions.
@@ -118,17 +118,17 @@ extension DataController {
                 return false
             }
         }
-        
+
         return hasStatus
     }
-    
+
     func predicateForSelectedFilter() -> Predicate<ToDo> {
         let matchesTag = matchesTagPredicate()
         let hasMaxDueDate = hasMaxDueDatePredicate()
         let matchesSearch = matchesSearchPredicate()
         let hasPriority = hasPriorityPredicate()
         let hasStatus = hasStatusPredicate()
-        
+
         // Need to split final predicate in parts because the compiler does not like large expressions
         let selfFilterEnabled = self.filterEnabled // Predicates do not like external objects that are not constant
         let finalPredicate1 = #Predicate<ToDo> { toDo in
@@ -144,8 +144,8 @@ extension DataController {
             finalPredicate1.evaluate(toDo)
             && finalPredicate2.evaluate(toDo)
         }
-        
+
         return finalPredicate
     }
-    
+
 }

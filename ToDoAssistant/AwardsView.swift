@@ -9,14 +9,14 @@ import SwiftUI
 
 struct AwardsView: View {
     @Environment(DataController.self) private var dataController
-    
+
     var columns: [GridItem] {
         [GridItem(.adaptive(minimum: 100, maximum: 100))] // Might need  to adjust that 100 later
     }
-    
+
     @State private var selectedAward = Award.example
     @State private var showingAwardDetails = false
-    
+
     var awardTitle: String {
         if dataController.hasEarned(award: selectedAward) {
             return "Unlocked: \(selectedAward.name)"
@@ -24,7 +24,7 @@ struct AwardsView: View {
             return "Locked"
         }
     }
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -53,7 +53,7 @@ struct AwardsView: View {
             Text(selectedAward.description)
         }
     }
-    
+
     func color(for award: Award) -> Color {
         dataController.hasEarned(award: award) ? Color(award.color) : .secondary.opacity(0.5)
     }

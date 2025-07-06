@@ -11,7 +11,7 @@ struct ToDoView: View {
     @State var toDo: ToDo
     @Environment(DataController.self) private var dataController
     @State var selectingDate = false
-    
+
     var body: some View {
         Form {
             Section {
@@ -22,7 +22,7 @@ struct ToDoView: View {
                     Button("**Due Date:** \(toDo.toDoDueDate.formatted(date: .long, time: .shortened))") {
                         selectingDate.toggle()
                     }
-                    
+
                     if selectingDate {
                         DatePicker(
                             "Due Date",
@@ -31,7 +31,7 @@ struct ToDoView: View {
                         )
                         .datePickerStyle(.graphical)
                     }
-                    
+
                     Text("**Status:** \(toDo.toDoStatus)")
                         .foregroundStyle(.secondary)
 
@@ -42,7 +42,7 @@ struct ToDoView: View {
                     Text("Medium").tag(ToDo.Priority.medium)
                     Text("High").tag(ToDo.Priority.high)
                 }
-                
+
                 TagsMenuView(toDo: toDo)
             }
             Section {
@@ -65,7 +65,7 @@ struct ToDoView: View {
         .toolbar {
             ToDoViewToolbar(toDo: toDo)
         }
-         
+
     }
 }
 

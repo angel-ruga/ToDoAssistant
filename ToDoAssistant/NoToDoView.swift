@@ -9,12 +9,12 @@ import SwiftUI
 
 struct NoToDoView: View {
     @Environment(DataController.self) private var dataController
-    
+
     var body: some View {
         Text("No ToDo Selected")
             .font(.title)
             .foregroundStyle(.secondary)
-        
+
         Button("New ToDo", action: dataController.newToDo)
     }
 }

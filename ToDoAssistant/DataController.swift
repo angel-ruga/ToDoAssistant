@@ -21,16 +21,16 @@ enum Status: String {
 
 @Observable @MainActor
 class DataController {
-    
+
     private let container: ModelContainer
     let modelContext: ModelContext
-    
+
     var selectedFilter: Filter? = Filter.all
-    
+
     var selectedToDo: ToDo?
-    
+
     private var saveTask: Task<Void, Error>?
-    
+
     // Filtering
     var filterText = ""
     var filterEnabled = false
@@ -39,11 +39,11 @@ class DataController {
     var sortType = SortType.alphabetical
     var sortDueSoonFirst = true
     var sortAZ = true
-    
+
     init(inMemory: Bool = false) {
-        
+
         // TODO: Check behavior of CoreData automaticallyMergesChangesFromParent and mergePolicy translated to SwiftData
-        
+
         let schema = Schema([ToDo.self, Tag.self])
         let config: ModelConfiguration
         if inMemory {
@@ -58,41 +58,41 @@ class DataController {
             fatalError("Could not configure the container")
         }
     }
-    
+
     static var preview: DataController = {
         let dataController = DataController(inMemory: true)
         dataController.createSampleData()
         return dataController
     }()
-    
+
     func save() {
         saveTask?.cancel() // Just in case this method was called in .onSubmit(dataController.save)
         if modelContext.hasChanges {
             try? modelContext.save()
         }
     }
-    
+
     func delete<T: PersistentModel>(_ object: T) {
         modelContext.delete(object)
         save()
     }
-    
+
     func deleteAll() {
         do {
             try modelContext.delete(model: ToDo.self)
         } catch {
             print("Error deleting all ToDo model objects: \(error.localizedDescription)")
         }
-        
+
         do {
             try modelContext.delete(model: Tag.self)
         } catch {
             print("Error deleting all Tag model objects: \(error.localizedDescription)")
         }
-        
+
         save()
     }
-    
+
     func createSampleData() {
         // let modelContext = container.mainContext
 
@@ -108,18 +108,18 @@ class DataController {
                 let toDoCompleted = Bool.random()
                 let toDoPriority = ToDo.Priority.allCases.randomElement()
                 let toDo = ToDo(title: toDoTitle, content: toDoContent, priority: toDoPriority?.rawValue, completed: toDoCompleted, dueDate: toDoDueDate, tags: [tag]) // swiftlint:disable:this line_length
-                
+
                 tag.toDos?.append(toDo)
-                
+
                 modelContext.insert(toDo)
             }
-            
+
             modelContext.insert(tag)
         }
 
         try? modelContext.save()
     }
-    
+
     // Get all the existing tags not on the provided ToDo
     func missingTags(from toDo: ToDo) -> [Tag] {
         let request = FetchDescriptor<Tag>()
@@ -130,7 +130,7 @@ class DataController {
 
         return difference.sorted()
     }
-    
+
     func queueSave() {
         // Cancel the previous save task if it already was in progress
         saveTask?.cancel()
@@ -141,30 +141,30 @@ class DataController {
             save()
         }
     }
-    
+
     func sortDescriptorForSelectedFilter() -> [SortDescriptor<ToDo>] {
         let azSort = SortDescriptor<ToDo>(
             \ToDo.title,
              order: self.sortAZ ? .forward : .reverse
         )
-        
+
         let dueSoonSort = SortDescriptor<ToDo>(
             \ToDo.dueDate,
              order: self.sortDueSoonFirst ? .forward : .reverse
         )
-        
+
         let finalSort: [SortDescriptor<ToDo>]
-        
+
         switch self.sortType {
         case SortType.alphabetical:
             finalSort = [azSort, dueSoonSort]
         case SortType.dueDate:
             finalSort = [dueSoonSort, azSort]
         }
-        
+
         return finalSort
     }
-    
+
     func toDosForSelectedFilter() -> [ToDo] {
         let finalPredicate = predicateForSelectedFilter()
         let finalSortDescriptor = sortDescriptorForSelectedFilter()
@@ -172,13 +172,13 @@ class DataController {
             predicate: finalPredicate,
             sortBy: finalSortDescriptor
         )
-        
+
         var allToDos: [ToDo]
         allToDos = (try? modelContext.fetch(descriptor)) ?? []
-        
+
         return allToDos
     }
-    
+
     func newToDo() {
         let toDo = ToDo()
         toDo.toDoTitle = "New ToDo"
@@ -186,17 +186,17 @@ class DataController {
         toDo.toDoPriority = .medium
         toDo.toDoCompleted = false
         toDo.toDoContent = ""
-        
+
         if let tag = selectedFilter?.tag {
             toDo.toDoTags.append(tag)
         }
-        
+
         modelContext.insert(toDo)
         save()
-        
+
         selectedToDo = toDo
     }
-    
+
     func newTag() {
         let tag = Tag()
         tag.tagID = UUID()
@@ -204,7 +204,7 @@ class DataController {
         modelContext.insert(tag)
         save()
     }
-    
+
     func count<T>(for fetchDescriptor: FetchDescriptor<T>) -> Int {
         return (try? modelContext.fetchCount(fetchDescriptor)) ?? 0
     }

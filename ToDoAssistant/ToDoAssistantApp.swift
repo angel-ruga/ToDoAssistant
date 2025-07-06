@@ -12,7 +12,7 @@ import SwiftUI
 struct ToDoAssistantApp: App {
     @State var dataController = DataController()
     @Environment(\.scenePhase) var scenePhase
-    
+
     var body: some Scene {
         WindowGroup {
             NavigationSplitView {
