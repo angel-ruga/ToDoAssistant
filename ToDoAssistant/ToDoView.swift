@@ -43,36 +43,7 @@ struct ToDoView: View {
                     Text("High").tag(ToDo.Priority.high)
                 }
                 
-                Menu {
-                    // show selected tags first
-                    ForEach(toDo.toDoTags) { tag in
-                        Button {
-                            toDo.toDoTags.removeAll(where: {$0.tagID == tag.tagID})
-                        } label: {
-                            Label(tag.tagName, systemImage: "checkmark")
-                        }
-                    }
-
-                    // now show unselected tags
-                    let otherTags = dataController.missingTags(from: toDo)
-
-                    if otherTags.isEmpty == false {
-                        Divider()
-
-                        Section("Add Tags") {
-                            ForEach(otherTags) { tag in
-                                Button(tag.tagName) {
-                                    toDo.toDoTags.append(tag)
-                                }
-                            }
-                        }
-                    }
-                } label: {
-                    Text(toDo.toDoTagsList)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .animation(nil, value: toDo.toDoTagsList)
-                }
+                TagsMenuView(toDo: toDo)
             }
             Section {
                 VStack(alignment: .leading) {
@@ -92,22 +63,7 @@ struct ToDoView: View {
         }
         .onSubmit(dataController.save)
         .toolbar {
-            Menu {
-                Button {
-                    UIPasteboard.general.string = toDo.toDoTitle
-                } label: {
-                    Label("Copy ToDo Title", systemImage: "doc.on.doc")
-                }
-
-                Button {
-                    toDo.toDoCompleted.toggle()
-                    dataController.save()
-                } label: {
-                    Label(toDo.toDoCompleted ? "Re-open ToDo" : "Complete ToDo", systemImage: "bubble.left.and.exclamationmark.bubble.right")
-                }
-            } label: {
-                Label("Actions", systemImage: "ellipsis.circle")
-            }
+            ToDoViewToolbar(toDo: toDo)
         }
          
     }
