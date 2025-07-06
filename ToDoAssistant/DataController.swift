@@ -42,7 +42,7 @@ class DataController {
 
     init(inMemory: Bool = false) {
 
-        // TODO: Check behavior of CoreData automaticallyMergesChangesFromParent and mergePolicy translated to SwiftData
+        // Gotta check behavior of CoreData automaticallyMergesChangesFromParent and mergePolicy translated to SwiftData
 
         let schema = Schema([ToDo.self, Tag.self])
         let config: ModelConfiguration
