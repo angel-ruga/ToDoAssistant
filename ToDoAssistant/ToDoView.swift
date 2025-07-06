@@ -23,7 +23,7 @@ struct ToDoView: View {
                         selectingDate.toggle()
                     }
                     
-                    if (selectingDate) {
+                    if selectingDate {
                         DatePicker(
                             "Due Date",
                             selection: $toDo.toDoDueDate,
@@ -51,13 +51,13 @@ struct ToDoView: View {
                         .font(.title2)
                         .foregroundStyle(.secondary)
 
-                    TextField("Description", text: $toDo.toDoContent, prompt: Text("Enter the ToDo description here"), axis: .vertical)
+                    TextField("Description", text: $toDo.toDoContent, prompt: Text("Enter the ToDo description here"), axis: .vertical) // swiftlint:disable:this line_length
                 }
             }
         }
         .disabled(toDo.isDeleted)
         .onChange(of: toDo.hasChanges, initial: false) {
-            if (toDo.hasChanges) {
+            if toDo.hasChanges {
                 dataController.queueSave()
             }
         }

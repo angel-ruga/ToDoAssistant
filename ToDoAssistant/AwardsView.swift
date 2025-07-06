@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AwardsView: View {
-    
     @Environment(DataController.self) private var dataController
     
     var columns: [GridItem] {

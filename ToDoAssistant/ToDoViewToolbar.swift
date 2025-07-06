@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct ToDoViewToolbar: View {
-    
     @Environment(DataController.self) private var dataController
     @State var toDo: ToDo
+    
+    var openCloseButtonText: LocalizedStringKey {
+        toDo.toDoCompleted ? "Re-open ToDo" : "Complete ToDo"
+    }
     
     var body: some View {
         Menu {
@@ -24,7 +27,7 @@ struct ToDoViewToolbar: View {
                 toDo.toDoCompleted.toggle()
                 dataController.save()
             } label: {
-                Label(toDo.toDoCompleted ? "Re-open ToDo" : "Complete ToDo", systemImage: "bubble.left.and.exclamationmark.bubble.right")
+                Label(openCloseButtonText, systemImage: "bubble.left.and.exclamationmark.bubble.right")
             }
             
             Divider()

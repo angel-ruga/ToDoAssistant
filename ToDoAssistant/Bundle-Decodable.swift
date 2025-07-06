@@ -27,6 +27,7 @@ extension Bundle {
         decoder.dateDecodingStrategy = dateDecodingStrategy
         decoder.keyDecodingStrategy = keyDecodingStrategy
         
+        // swiftlint:disable line_length
         do {
             return try decoder.decode(T.self, from: data)
         } catch DecodingError.keyNotFound(let key, let context) {
@@ -40,6 +41,6 @@ extension Bundle {
         } catch {
             fatalError("Failed to decode \(file) from bundle: \(error.localizedDescription)")
         }
+        // swiftlint:enable line_length
     }
-    
 }

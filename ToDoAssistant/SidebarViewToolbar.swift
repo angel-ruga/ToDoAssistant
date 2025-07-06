@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SidebarViewToolbar: View {
-    
     @Environment(DataController.self) private var dataController
     @State private var showingAwards = false
     

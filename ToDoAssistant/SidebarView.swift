@@ -9,9 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct SidebarView: View {
-    
     @Environment(DataController.self) private var dataController
-    //@Environment(\.modelContext) private var modelContext
     let smartFilters: [Filter] = [.all, .soon]
     @Query(sort: \Tag.name) var tags: [Tag]
     

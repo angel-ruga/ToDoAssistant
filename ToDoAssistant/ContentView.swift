@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    
     @Environment(DataController.self) private var dataController
     
     var body: some View {
@@ -22,7 +21,7 @@ struct ContentView: View {
             .onDelete(perform: delete)
         }
         .searchable(text: $dataController.filterText, prompt: "Filter ToDos")
-        .toolbar (content: ContentViewToolbar.init)
+        .toolbar(content: ContentViewToolbar.init)
         .navigationTitle("ToDos")
         .navigationBarTitleDisplayMode(.inline)
     }

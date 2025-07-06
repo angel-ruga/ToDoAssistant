@@ -10,7 +10,6 @@ import Foundation
 
 @Model
 class Tag: Comparable {
-    
     // Stored properties. Need to be optional for iCloud compatibility.
     var id: UUID? = UUID()
     var name: String?
@@ -44,7 +43,7 @@ class Tag: Comparable {
     }
     
     // Comparable conformance
-    public static func <(lhs: Tag, rhs: Tag) -> Bool {
+    public static func < (lhs: Tag, rhs: Tag) -> Bool {
         let left = lhs.tagName.localizedLowercase
         let right = rhs.tagName.localizedLowercase
 

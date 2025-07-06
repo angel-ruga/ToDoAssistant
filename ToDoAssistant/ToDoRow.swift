@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct ToDoRow: View {
-    
     @Environment(DataController.self) private var dataController
     @State var toDo: ToDo
-    
+
     var body: some View {
         NavigationLink(value: toDo) {
             HStack {
@@ -22,7 +21,7 @@ struct ToDoRow: View {
                 VStack(alignment: .leading) {
                     Text(toDo.toDoTitle)
                         .font(.headline)
-                        .lineLimit(1) //lineLimit(2...2) for two
+                        .lineLimit(1) // lineLimit(2...2) for two
 
                     Text(toDo.toDoTagsList)
                         .foregroundStyle(.secondary)
@@ -32,7 +31,7 @@ struct ToDoRow: View {
                 Spacer()
 
                 VStack(alignment: .trailing) {
-                    //Text(toDo.toDoDueDate.formatted(date: .numeric, time: .omitted))
+                    // Text(toDo.toDoDueDate.formatted(date: .numeric, time: .omitted))
                     if toDo.toDoCompleted {
                         Text("DONE")
                             .font(.body.smallCaps())

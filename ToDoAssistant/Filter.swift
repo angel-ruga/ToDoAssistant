@@ -12,7 +12,7 @@ struct Filter: Identifiable, Hashable {
     var name: String
     var icon: String
     var maxDueDate = Date.distantFuture
-    //var tags: [Tag]?
+    // var tags: [Tag]?
     var tag: Tag?
     
     var activeToDosCount: Int {
@@ -20,13 +20,13 @@ struct Filter: Identifiable, Hashable {
     }
     
     static var all = Filter(id: UUID(), name: "All ToDos", icon: "tray")
-    static var soon = Filter(id: UUID(), name: "ToDos due soon", icon: "clock", maxDueDate: .now.addingTimeInterval(86400 * 7))
+    static var soon = Filter(id: UUID(), name: "ToDos due soon", icon: "clock", maxDueDate: .now.addingTimeInterval(86400 * 7)) // swiftlint:disable:this line_length
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 
-    static func ==(lhs: Filter, rhs: Filter) -> Bool {
+    static func == (lhs: Filter, rhs: Filter) -> Bool {
         lhs.id == rhs.id
     }
 }

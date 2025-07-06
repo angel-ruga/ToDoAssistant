@@ -8,10 +8,8 @@
 import SwiftData
 import Foundation
 
-
 @Model
-class ToDo: Comparable{
-    
+class ToDo: Comparable {
     enum Priority: Int, CaseIterable {
         case low = 0
         case medium = 1
@@ -60,8 +58,8 @@ class ToDo: Comparable{
             return "OVERDUE"
         }
         
-        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: .now, to: toDoDueDate)
-        let componentValues = [components.year, components.month, components.day, components.hour, components.minute, components.second]
+        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: .now, to: toDoDueDate) // swiftlint:disable:this line_length
+        let componentValues = [components.year, components.month, components.day, components.hour, components.minute, components.second] // swiftlint:disable:this line_length
         let componentStrs = ["year", "month", "day", "hour", "minute", "second"]
         for idx in (0..<componentValues.count) {
             if let value = componentValues[idx] {
@@ -99,7 +97,7 @@ class ToDo: Comparable{
         return toDo
     }
     
-    init(title: String? = nil, content: String? = nil, priority: Int? = nil, completed: Bool? = false, dueDate: Date? = nil, tags: [Tag]? = nil) {
+    init(title: String? = nil, content: String? = nil, priority: Int? = nil, completed: Bool? = false, dueDate: Date? = nil, tags: [Tag]? = nil) { // swiftlint:disable:this line_length
         self.title = title
         self.content = content
         self.priority = priority
@@ -109,7 +107,7 @@ class ToDo: Comparable{
     }
     
     // Comparable conformance
-    public static func <(lhs: ToDo, rhs: ToDo) -> Bool {
+    public static func < (lhs: ToDo, rhs: ToDo) -> Bool {
         let left = lhs.toDoTitle.localizedLowercase
         let right = rhs.toDoTitle.localizedLowercase
 
@@ -120,12 +118,12 @@ class ToDo: Comparable{
         }
     }
     
-    public func removeTag(_ tag: Tag) -> Void {
+    public func removeTag(_ tag: Tag) {
         toDoTags.removeAll(where: {$0 == tag})
     }
     
     static func priority2str (_ priority: Priority) -> String {
-        switch (priority) {
+        switch priority {
         case .low:
             return "Low"
         case .medium:

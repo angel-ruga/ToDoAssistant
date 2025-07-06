@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SmartFilterRow: View {
-    
     var filter: Filter
     
     var body: some View {

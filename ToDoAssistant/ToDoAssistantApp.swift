@@ -32,26 +32,3 @@ struct ToDoAssistantApp: App {
         }
     }
 }
-
-/*
- struct ToDoAssistantApp: App {
-     let container: ModelContainer
-     var body: some Scene {
-         WindowGroup {
-             ContentView()
-         }
-         .modelContainer(container)
-     }
-     
-     init() {
-         let schema = Schema([ToDo.self, Tag.self])
-         let config = ModelConfiguration("MyToDos", schema: schema, url: URL.documentsDirectory.appending(path: "MyToDos.store"))
-         do {
-             container = try ModelContainer(for: ToDo.self, configurations: config)
-         } catch {
-             fatalError("Could not configure the container")
-         }
-         DataController.container = container
-     }
- }
- */
