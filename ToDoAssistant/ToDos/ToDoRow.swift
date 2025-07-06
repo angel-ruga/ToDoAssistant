@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A row for each ToDo displayed in ContentView
 struct ToDoRow: View {
     @Environment(DataController.self) private var dataController
     @State var toDo: ToDo

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The toolbar for the ContentView
 struct ContentViewToolbar: View {
     @Environment(DataController.self) private var dataController
 

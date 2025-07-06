@@ -7,17 +7,18 @@
 
 import SwiftUI
 
+/// A view that shows the all the earnable awards
 struct AwardsView: View {
     @Environment(DataController.self) private var dataController
 
-    var columns: [GridItem] {
+    private var columns: [GridItem] {
         [GridItem(.adaptive(minimum: 100, maximum: 100))] // Might need  to adjust that 100 later
     }
 
     @State private var selectedAward = Award.example
     @State private var showingAwardDetails = false
 
-    var awardTitle: String {
+    private var awardTitle: String {
         if dataController.hasEarned(award: selectedAward) {
             return "Unlocked: \(selectedAward.name)"
         } else {
@@ -54,11 +55,11 @@ struct AwardsView: View {
         }
     }
 
-    func color(for award: Award) -> Color {
+    private func color(for award: Award) -> Color {
         dataController.hasEarned(award: award) ? Color(award.color) : .secondary.opacity(0.5)
     }
 
-    func label(for award: Award) -> LocalizedStringKey {
+    private func label(for award: Award) -> LocalizedStringKey {
         dataController.hasEarned(award: award) ? "Unlocked: \(award.name)" : "Locked"
     }
 }

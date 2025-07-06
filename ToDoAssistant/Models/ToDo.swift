@@ -8,6 +8,7 @@
 import SwiftData
 import Foundation
 
+/// Model class for the ToDos this whole app is about
 @Model
 class ToDo: Comparable {
     enum Priority: Int, CaseIterable {
@@ -53,6 +54,9 @@ class ToDo: Comparable {
         set { tags = newValue }
     }
 
+    /// Returns the formatted remaining time before the ToDo's due date.
+    ///
+    /// It only returns the number of units of the biggest time unit.
     var formattedTimeRemaining: String {
         if toDoDueDate < Date.now {
             return "OVERDUE"
@@ -71,6 +75,7 @@ class ToDo: Comparable {
         return "unknown time remaining"
     }
 
+    /// Returns the ToDo completion status as a string for viewing purposes
     var toDoStatus: String {
         if toDoCompleted {
             return "Done"
@@ -79,6 +84,7 @@ class ToDo: Comparable {
         }
     }
 
+    /// Return a formatterd string naming the tags the ToDo has
     var toDoTagsList: String {
         if toDoTags.count == 0 {
             return "No tags"
@@ -87,7 +93,7 @@ class ToDo: Comparable {
         }
     }
 
-    // Example
+    /// Example ToDo for testing and preview purposes
     static var example: ToDo {
         let toDo = ToDo()
         toDo.title = "Example ToDo"
@@ -118,10 +124,15 @@ class ToDo: Comparable {
         }
     }
 
+    /// Removes the specified Tag object from this ToDo object
+    /// - Parameter tag: Tag to be removed
     public func removeTag(_ tag: Tag) {
         toDoTags.removeAll(where: {$0 == tag})
     }
 
+    /// Converts the priority property into a String that can be shown to the user.
+    /// - Parameter priority: The priority enum value
+    /// - Returns: The resulting string
     static func priority2str (_ priority: Priority) -> String {
         switch priority {
         case .low:

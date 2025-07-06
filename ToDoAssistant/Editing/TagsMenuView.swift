@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view that shows the tags of the selected ToDo, with options to edit them.
 struct TagsMenuView: View {
     @Environment(DataController.self) private var dataController
     @State var toDo: ToDo

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The toolbar for the SidebarView
 struct SidebarViewToolbar: View {
     @Environment(DataController.self) private var dataController
     @State private var showingAwards = false

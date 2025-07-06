@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view that shows either ToDoView or NotToDoView depending on wether there is a selcted ToDo in the data controller
 struct DetailView: View {
     @Environment(DataController.self) private var dataController
 

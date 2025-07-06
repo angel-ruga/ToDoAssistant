@@ -9,6 +9,8 @@ import Foundation
 
 extension DataController {
 
+    /// Returns the predicate associated with the matching of tags in the selected filter
+    /// - Returns: Predicate
     func matchesTagPredicate() -> Predicate<ToDo> {
         let filter = selectedFilter ?? .all
         var enableMatchesTag: Bool
@@ -43,6 +45,8 @@ extension DataController {
         return matchesTag
     }
 
+    /// Returns the predicate associated with the maximum due date in the selected filter
+    /// - Returns: Predicate
     func hasMaxDueDatePredicate() -> Predicate<ToDo> {
         let filter = selectedFilter ?? .all
         let filterDate = filter.maxDueDate
@@ -58,6 +62,8 @@ extension DataController {
         return hasMaxDueDate
     }
 
+    /// Returns the predicate associated with the string match in the selected search field
+    /// - Returns: Predicate
     func matchesSearchPredicate() -> Predicate<ToDo> {
         let trimmedFilterText = self.filterText.trimmingCharacters(in: .whitespaces)
         let constantFilterText = self.filterText
@@ -82,6 +88,8 @@ extension DataController {
         return matchesSearch
     }
 
+    /// Returns the predicate associated with the matching of priority in the selected filter
+    /// - Returns: Predicate
     func hasPriorityPredicate() -> Predicate<ToDo> {
         let selfFilterPriority = self.filterPriority // Predicates do not like external objects that are not constant
 
@@ -100,6 +108,8 @@ extension DataController {
         return hasPriority
     }
 
+    /// Returns the predicate associated with the matching of completion status in the selected filter
+    /// - Returns: Predicate
     func hasStatusPredicate() -> Predicate<ToDo> {
         let selfFilterStatus = self.filterStatus // Predicates do not like external objects that are not constant
         let selfFilterStatusDone = selfFilterStatus == Status.done
@@ -122,6 +132,8 @@ extension DataController {
         return hasStatus
     }
 
+    /// Returns the final predicate that will be used for the data fetch, based on the current filter status.
+    /// - Returns: Predicate
     func predicateForSelectedFilter() -> Predicate<ToDo> {
         let matchesTag = matchesTagPredicate()
         let hasMaxDueDate = hasMaxDueDatePredicate()

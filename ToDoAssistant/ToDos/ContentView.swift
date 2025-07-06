@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 
+/// A view that shows a list of specific ToDos according to the selection made in SidebarView
 struct ContentView: View {
     @Environment(DataController.self) private var dataController
 
@@ -26,6 +27,8 @@ struct ContentView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
+    /// Deletes the ToDo model objects selected on the list
+    /// - Parameter offsets: Indices of the ToDo model objects that were selected to be deleted.
     func delete(_ offsets: IndexSet) {
         let toDos = dataController.toDosForSelectedFilter()
 

@@ -8,6 +8,7 @@
 import SwiftData
 import Foundation
 
+/// Model class for the tags that can be attached to the ToDo model objects.
 @Model
 class Tag: Comparable {
     // Stored properties. Need to be optional for iCloud compatibility.
@@ -24,12 +25,12 @@ class Tag: Comparable {
         get { name ?? "" }
         set { name = newValue }
     }
-
     var tagActiveToDos: [ToDo] {
         let result = toDos ?? []
         return result.filter { $0.toDoCompleted == false }
     }
 
+    /// Example tag for testing and preview purposes
     static var example: Tag {
         let tag = Tag()
         tag.id = UUID()

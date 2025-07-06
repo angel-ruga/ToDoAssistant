@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view that contains all the details of the selected ToDo, including options to edit them.
 struct ToDoView: View {
     @State var toDo: ToDo
     @Environment(DataController.self) private var dataController

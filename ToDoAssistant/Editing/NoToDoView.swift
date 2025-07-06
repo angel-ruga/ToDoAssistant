@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view that is shown when no ToDo is selected
 struct NoToDoView: View {
     @Environment(DataController.self) private var dataController
 

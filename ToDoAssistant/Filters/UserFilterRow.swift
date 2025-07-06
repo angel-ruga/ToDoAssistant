@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A row for the tag filters in SidebarView
 struct UserFilterRow: View {
     var filter: Filter
     var rename: (Filter) -> Void

@@ -23,7 +23,7 @@ enum Status: String {
 /// counting fetch requests, tracking awards, and dealing with sample data.
 @Observable @MainActor
 class DataController {
-    
+
     /// The lone SwiftData container used to store all our data.
     private let container: ModelContainer
     let modelContext: ModelContext
@@ -42,7 +42,7 @@ class DataController {
     var sortType = SortType.alphabetical
     var sortDueSoonFirst = true
     var sortAZ = true
-    
+
     /// Initializes a data controller, either in memory (for temporary use such as testing and previewing),
     /// or on permanent storage (for use in regular app runs.)
     ///
@@ -70,12 +70,13 @@ class DataController {
         }
     }
 
+    /// Returns a DataController instance stored in memory only for preview and testing purposes
     static var preview: DataController = {
         let dataController = DataController(inMemory: true)
         dataController.createSampleData()
         return dataController
     }()
-    
+
     /// Saves our SwiftData context iff there are changes. This silently ignores
     /// any errors caused by saving, but this should be fine because all our attributes are optional.
     func save() {
@@ -85,11 +86,14 @@ class DataController {
         }
     }
 
+    /// Deletes the provided model object from storage
+    /// - Parameter object: Object to be deleted
     func delete<T: PersistentModel>(_ object: T) {
         modelContext.delete(object)
         save()
     }
 
+    /// Deletes all model objects (ToDos and Tags) from storage
     func deleteAll() {
         do {
             try modelContext.delete(model: ToDo.self)
@@ -106,6 +110,7 @@ class DataController {
         save()
     }
 
+    /// Creates sample ToDo and Tag model objects for testing purposes
     func createSampleData() {
         // let modelContext = container.mainContext
 
@@ -133,7 +138,9 @@ class DataController {
         try? modelContext.save()
     }
 
-    // Get all the existing tags not on the provided ToDo
+    /// Returns all the existing tags not on the provided ToDo
+    /// - Parameter toDo: The specified ToDo
+    /// - Returns: The array of Tags not on the specified ToDo
     func missingTags(from toDo: ToDo) -> [Tag] {
         let request = FetchDescriptor<Tag>()
         let allTags = (try? modelContext.fetch(request)) ?? []
@@ -144,6 +151,7 @@ class DataController {
         return difference.sorted()
     }
 
+    /// Schedules a save of the model objects in 3 minutes from now
     func queueSave() {
         // Cancel the previous save task if it already was in progress
         saveTask?.cancel()
@@ -155,6 +163,8 @@ class DataController {
         }
     }
 
+    /// Returns the sort descriptor array that will be used for the data fetch, based on the current filter status.
+    /// - Returns: Sort descriptor array
     func sortDescriptorForSelectedFilter() -> [SortDescriptor<ToDo>] {
         let azSort = SortDescriptor<ToDo>(
             \ToDo.title,
@@ -177,7 +187,7 @@ class DataController {
 
         return finalSort
     }
-    
+
     /// Runs a fetch with various predicates and sort descriptors that filter and order the user's ToDos based
     /// on tag, title and content text, date, priority, and completion status.
     /// - Returns: An array of all matching ToDos.
@@ -195,6 +205,7 @@ class DataController {
         return allToDos
     }
 
+    /// Creates a new ToDo model object and selects it
     func newToDo() {
         let toDo = ToDo()
         toDo.toDoTitle = "New ToDo"
@@ -216,6 +227,7 @@ class DataController {
         selectedToDo = toDo
     }
 
+    /// Creates a new Tag model object
     func newTag() {
         let tag = Tag()
         tag.tagID = UUID()
@@ -224,10 +236,16 @@ class DataController {
         save()
     }
 
+    /// Returns the count of the requested stored model objects
+    /// - Parameter fetchDescriptor: Describes the rules for the fetch before the count
+    /// - Returns: Number of matched object model
     func count<T>(for fetchDescriptor: FetchDescriptor<T>) -> Int {
         return (try? modelContext.fetchCount(fetchDescriptor)) ?? 0
     }
 
+    /// Returns true iff the specified award has been earned
+    /// - Parameter award: The specified award
+    /// - Returns: Wether the award has been earned
     func hasEarned(award: Award) -> Bool {
         switch award.criterion {
         case "ToDos":
