@@ -17,7 +17,7 @@ final class DevelopmentTests: BaseTestCase {
         XCTAssertEqual(dataController.count(for: FetchDescriptor<Tag>()), 5, "There should be 5 sample tags.")
         XCTAssertEqual(dataController.count(for: FetchDescriptor<ToDo>()), 50, "There should be 50 sample ToDos.")
     }
-    
+
     func testDeleteAllClearsEverything() {
         dataController.createSampleData()
         dataController.deleteAll()
