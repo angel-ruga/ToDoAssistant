@@ -67,7 +67,7 @@
         "name": "Checking Boxes",
         "description": "Close your first ToDo.",
         "color": "Green",
-        "criterion": "closed",
+        "criterion": "done",
         "value": 1,
         "image": "checkmark.shield.fill"
     },
@@ -75,7 +75,7 @@
         "name": "Rocking it",
         "description": "Close 10 ToDos.",
         "color": "Green",
-        "criterion": "closed",
+        "criterion": "done",
         "value": 10,
         "image": "guitars.fill"
     },
@@ -83,7 +83,7 @@
         "name": "20 is Plenty",
         "description": "Close 20 ToDos.",
         "color": "Green",
-        "criterion": "closed",
+        "criterion": "done",
         "value": 20,
         "image": "20.square.fill"
     },
@@ -91,7 +91,7 @@
         "name": "Bullseye!",
         "description": "Close 50 ToDos.",
         "color": "Green",
-        "criterion": "closed",
+        "criterion": "done",
         "value": 50,
         "image": "target"
     },
@@ -99,7 +99,7 @@
         "name": "Flying High",
         "description": "Close 100 ToDos.",
         "color": "Green",
-        "criterion": "closed",
+        "criterion": "done",
         "value": 100,
         "image": "airplane.circle.fill"
     },
@@ -107,7 +107,7 @@
         "name": "You're On Fire!",
         "description": "Close 250 ToDos.",
         "color": "Green",
-        "criterion": "closed",
+        "criterion": "done",
         "value": 250,
         "image": "flame.fill"
     },
@@ -115,7 +115,7 @@
         "name": "Box Ticker in Chief",
         "description": "Close 500 ToDos.",
         "color": "Green",
-        "criterion": "closed",
+        "criterion": "done",
         "value": 500,
         "image": "text.badge.checkmark"
     },
@@ -123,7 +123,7 @@
         "name": "Boom!",
         "description": "Close 1000 ToDos.",
         "color": "Green",
-        "criterion": "closed",
+        "criterion": "done",
         "value": 1000,
         "image": "bolt.circle.fill"
     },
