@@ -19,7 +19,7 @@ final class PerformanceTests: BaseTestCase {
 
         // Simulate lots of awards to check
         let awards = Array(repeating: Award.allAwards, count: 25).joined()
-        
+
         // Doing this in order to rely on the baseline for this test
         XCTAssertEqual(awards.count, 500, "This checks the awards count is constant. Change this if you add awards.")
 

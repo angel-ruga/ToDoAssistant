@@ -18,6 +18,7 @@ struct ToDoRow: View {
                 Image(systemName: "exclamationmark.circle")
                     .imageScale(.large)
                     .opacity(toDo.toDoPriority == .high ? 1 : 0)
+                    .accessibilityIdentifier(toDo.toDoPriority == .high ? "\(toDo.toDoTitle) High Priority" : "")
 
                 VStack(alignment: .leading) {
                     Text(toDo.toDoTitle)
@@ -45,6 +46,7 @@ struct ToDoRow: View {
             }
         }
         .accessibilityHint(toDo.toDoPriority == .high ? "High priority" : "")
+        .accessibilityIdentifier(toDo.toDoTitle)
     }
 }
 

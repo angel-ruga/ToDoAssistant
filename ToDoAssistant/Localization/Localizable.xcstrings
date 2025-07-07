@@ -289,6 +289,22 @@
         }
       }
     },
+    "Create New ToDo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create New ToDo"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear Nueva Tarea"
+          }
+        }
+      }
+    },
     "Delete" : {
       "localizations" : {
         "en" : {

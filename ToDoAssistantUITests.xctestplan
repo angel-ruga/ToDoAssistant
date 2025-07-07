@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "CE7005A2-62E2-48C1-8378-A4254B4AFCE2",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ToDoAssistant.xcodeproj",
+      "identifier" : "41419AEF2DFFB058005816D1",
+      "name" : "ToDoAssistant"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ToDoAssistant.xcodeproj",
+        "identifier" : "4139ACCA2E1B8428007FAEFB",
+        "name" : "ToDoAssistantUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -16,7 +16,7 @@ struct ContentViewToolbar: View {
         @Bindable var dataController = dataController
 
         Button(action: dataController.newToDo) {
-            Label("New ToDo", systemImage: "square.and.pencil")
+            Label("Create New ToDo", systemImage: "square.and.pencil")
         }
 
         Menu {

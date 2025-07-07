@@ -7,6 +7,9 @@
 
 import SwiftData
 import Foundation
+#if DEBUG
+        import SwiftUI
+#endif
 
 enum SortType: String {
     case dueDate
@@ -68,6 +71,12 @@ class DataController {
         } catch {
             fatalError("Could not configure the container")
         }
+#if DEBUG
+        UIView.setAnimationsEnabled(false)
+        if CommandLine.arguments.contains("enable-testing") {
+            self.deleteAll()
+        }
+#endif
     }
 
     /// Returns a DataController instance stored in memory only for preview and testing purposes
