@@ -46,6 +46,8 @@ class DataController {
     var sortDueSoonFirst = true
     var sortAZ = true
 
+    var allTags = [Tag]()
+
     /// Initializes a data controller, either in memory (for temporary use such as testing and previewing),
     /// or on permanent storage (for use in regular app runs.)
     ///
@@ -71,6 +73,7 @@ class DataController {
         } catch {
             fatalError("Could not configure the container")
         }
+        fetchTags()
 #if DEBUG
         UIView.setAnimationsEnabled(false)
         if CommandLine.arguments.contains("enable-testing") {
@@ -93,6 +96,7 @@ class DataController {
         if modelContext.hasChanges {
             try? modelContext.save()
         }
+        fetchTags()
     }
 
     /// Deletes the provided model object from storage
@@ -151,8 +155,8 @@ class DataController {
     /// - Parameter toDo: The specified ToDo
     /// - Returns: The array of Tags not on the specified ToDo
     func missingTags(from toDo: ToDo) -> [Tag] {
-        let request = FetchDescriptor<Tag>()
-        let allTags = (try? modelContext.fetch(request)) ?? []
+        // let request = FetchDescriptor<Tag>()
+        // let allTags = (try? modelContext.fetch(request)) ?? []
 
         let allTagsSet = Set(allTags)
         let difference = allTagsSet.symmetricDifference(toDo.toDoTags)
@@ -280,5 +284,13 @@ class DataController {
             // fatalError("Unknown award criterion: \(award.criterion)")
             return false
         }
+    }
+    
+    /// Updates allTags propery
+    func fetchTags() {
+        let request = FetchDescriptor<Tag>()
+        let tags = (try? modelContext.fetch(request)) ?? []
+
+        allTags = tags.sorted()
     }
 }
