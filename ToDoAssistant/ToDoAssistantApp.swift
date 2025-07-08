@@ -18,9 +18,11 @@ struct ToDoAssistantApp: App {
             NavigationSplitView {
                 SidebarView(dataController: dataController)
             } content: {
-                ContentView()
+                ContentView(dataController: dataController)
+                    .navigationPopGestureDisabled(true)
             } detail: {
                 DetailView()
+                    .navigationPopGestureDisabled(true)
             }
             .environment(\.modelContext, dataController.modelContext)
             .environment(dataController)

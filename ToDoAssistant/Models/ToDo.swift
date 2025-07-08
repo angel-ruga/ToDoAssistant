@@ -54,27 +54,6 @@ class ToDo: Comparable {
         set { tags = newValue }
     }
 
-    /// Returns the formatted remaining time before the ToDo's due date.
-    ///
-    /// It only returns the number of units of the biggest time unit.
-    var formattedTimeRemaining: String {
-        if toDoDueDate < Date.now {
-            return "OVERDUE"
-        }
-
-        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: .now, to: toDoDueDate) // swiftlint:disable:this line_length
-        let componentValues = [components.year, components.month, components.day, components.hour, components.minute, components.second] // swiftlint:disable:this line_length
-        let componentStrs = ["year", "month", "day", "hour", "minute", "second"]
-        for idx in (0..<componentValues.count) {
-            if let value = componentValues[idx] {
-                if value != 0 {
-                    return "\(value) \(componentStrs[idx])\(abs(value) > 1 ? "s" : "")"
-                }
-            }
-        }
-        return "unknown time remaining"
-    }
-
     /// Returns the ToDo completion status as a string for viewing purposes
     var toDoStatus: String {
         if toDoCompleted {

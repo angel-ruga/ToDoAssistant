@@ -10,36 +10,27 @@ import SwiftData
 
 /// A view that shows a list of specific ToDos according to the selection made in SidebarView
 struct ContentView: View {
-    @Environment(DataController.self) private var dataController
+    @State private var viewModel: ViewModel
+
+    init(dataController: DataController) {
+        let viewModel = ViewModel(dataController: dataController)
+        _viewModel = State(wrappedValue: viewModel)
+    }
 
     var body: some View {
-        @Bindable var dataController = dataController
-
-        List(selection: $dataController.selectedToDo) {
-            ForEach(dataController.toDosForSelectedFilter()) { toDo in
+        List(selection: $viewModel.selectedToDo) {
+            ForEach(viewModel.dataController.toDosForSelectedFilter()) { toDo in
                 ToDoRow(toDo: toDo)
             }
-            .onDelete(perform: delete)
+            .onDelete(perform: viewModel.delete)
         }
-        .searchable(text: $dataController.filterText, prompt: "Filter ToDos")
+        .searchable(text: $viewModel.filterText, prompt: "Filter ToDos")
         .toolbar(content: ContentViewToolbar.init)
         .navigationTitle("ToDos")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationPopGestureDisabled(true)
-    }
-
-    /// Deletes the ToDo model objects selected on the list
-    /// - Parameter offsets: Indices of the ToDo model objects that were selected to be deleted.
-    func delete(_ offsets: IndexSet) {
-        let toDos = dataController.toDosForSelectedFilter()
-
-        for offset in offsets {
-            let item = toDos[offset]
-            dataController.delete(item)
-        }
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(dataController: .preview)
 }

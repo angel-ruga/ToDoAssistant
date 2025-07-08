@@ -18,8 +18,6 @@ struct SidebarView: View {
     }
 
     var body: some View {
-        // @Bindable var dataController = dataController
-        // @Bindable var viewModel = viewModel
         List(selection: $viewModel.dataController.selectedFilter) {
             Section("Smart Filters") {
                 ForEach(viewModel.smartFilters) { filter in

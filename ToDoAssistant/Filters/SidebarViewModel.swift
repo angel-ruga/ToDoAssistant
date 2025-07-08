@@ -10,8 +10,7 @@ import SwiftData
 
 extension SidebarView {
 
-    @MainActor
-    @Observable
+    @Observable @MainActor
     class ViewModel {
         var dataController: DataController
 
