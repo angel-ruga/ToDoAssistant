@@ -10,18 +10,23 @@ import SwiftData
 
 /// A view that shows a list of filters that group ToDos in different ways
 struct SidebarView: View {
-    @Bindable private var viewModel: ViewModel
+    @State private var viewModel: ViewModel
 
     init(dataController: DataController) {
         let viewModel = ViewModel(dataController: dataController)
-        _viewModel = Bindable(wrappedValue: viewModel)
+        _viewModel = State(wrappedValue: viewModel)
     }
 
     var body: some View {
         // @Bindable var dataController = dataController
+        // @Bindable var viewModel = viewModel
         List(selection: $viewModel.dataController.selectedFilter) {
             Section("Smart Filters") {
-                ForEach(viewModel.smartFilters, content: SmartFilterRow.init)
+                ForEach(viewModel.smartFilters) { filter in
+                    NavigationLink(value: filter) {
+                        Label(filter.name, systemImage: filter.icon)
+                    }
+                }
             }
             Section("Tags") {
                 ForEach(viewModel.tagFilters) { filter in
