@@ -21,6 +21,7 @@ struct DetailView: View {
         }
         .navigationTitle("Details")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationPopGestureDisabled(true)
     }
 }
 

@@ -25,6 +25,7 @@ struct ContentView: View {
         .toolbar(content: ContentViewToolbar.init)
         .navigationTitle("ToDos")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationPopGestureDisabled(true)
     }
 
     /// Deletes the ToDo model objects selected on the list
