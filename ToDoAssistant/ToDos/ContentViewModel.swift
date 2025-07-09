@@ -29,7 +29,7 @@ extension ContentView {
                 dataController.delete(item)
             }
         }
-        
+
         /// Lets us get toDo properties directly from this ViewModel class.
         subscript<Value>(dynamicMember keyPath: KeyPath<DataController, Value>) -> Value {
             dataController[keyPath: keyPath]

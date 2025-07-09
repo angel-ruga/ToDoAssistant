@@ -1,22 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        }
-      }
-    },
     "**Due Date:** %@" : {
       "localizations" : {
         "en" : {
@@ -525,22 +509,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alta"
-          }
-        }
-      }
-    },
-    "High priority" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "High priority"
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alta prioridad"
           }
         }
       }

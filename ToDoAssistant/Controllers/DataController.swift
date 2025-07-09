@@ -285,7 +285,7 @@ class DataController {
             return false
         }
     }
-    
+
     /// Updates allTags propery
     func fetchTags() {
         let request = FetchDescriptor<Tag>()

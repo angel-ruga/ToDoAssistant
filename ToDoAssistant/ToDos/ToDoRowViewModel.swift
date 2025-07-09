@@ -22,15 +22,15 @@ extension ToDoRow {
         var iconOpacity: Double {
             toDo.toDoPriority == .high ? 1 : 0
         }
-        
+
         var iconIdentifier: String {
             toDo.toDoPriority == .high ? "\(toDo.toDoTitle) High Priority" : ""
         }
-        
+
         var accessibilityHint: String {
             toDo.toDoPriority == .high ? "High priority" : ""
         }
-        
+
         /// Returns the formatted remaining time before the ToDo's due date.
         ///
         /// It only returns the number of units of the biggest time unit.
