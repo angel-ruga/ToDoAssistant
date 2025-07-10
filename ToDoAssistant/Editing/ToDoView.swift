@@ -12,6 +12,8 @@ struct ToDoView: View {
     @State var toDo: ToDo
     @Environment(DataController.self) private var dataController
     @State var selectingDate = false
+    @State private var showingNotificationsError = false
+    @Environment(\.openURL) var openURL
 
     var body: some View {
         Form {
@@ -55,6 +57,17 @@ struct ToDoView: View {
                     TextField("Description", text: $toDo.toDoContent, prompt: Text("Enter the ToDo description here"), axis: .vertical) // swiftlint:disable:this line_length
                 }
             }
+            Section("Reminders") {
+                Toggle("Show reminders", isOn: $toDo.toDoReminderEnabled.animation())
+
+                if toDo.toDoReminderEnabled {
+                   DatePicker(
+                       "Reminder time",
+                       selection: $toDo.toDoReminderTime,
+                       displayedComponents: .hourAndMinute
+                   )
+                }
+            }
         }
         .disabled(toDo.isDeleted)
         .onChange(of: toDo.hasChanges, initial: false) {
@@ -66,7 +79,41 @@ struct ToDoView: View {
         .toolbar {
             ToDoViewToolbar(toDo: toDo)
         }
+        .alert("Oops!", isPresented: $showingNotificationsError) {
+            Button("Check Settings", action: showAppSettings)
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("There was a problem setting your notification. Please check you have notifications enabled.")
+        }
+        .onChange(of: toDo.toDoReminderEnabled) { _, _ in
+            updateReminder()
+        }
+        .onChange(of: toDo.toDoReminderTime) { _, _ in
+            updateReminder()
+        }
+    }
 
+    func showAppSettings() {
+        guard let settingsURL = URL(string: UIApplication.openNotificationSettingsURLString) else {
+            return
+        }
+
+        openURL(settingsURL)
+    }
+
+    func updateReminder() {
+        dataController.removeReminders(for: toDo)
+
+        Task { @MainActor in
+            if toDo.toDoReminderEnabled {
+                let success = await dataController.addReminder(for: toDo)
+
+                if success == false {
+                    toDo.reminderEnabled = false
+                    showingNotificationsError = true
+                }
+            }
+        }
     }
 }
 

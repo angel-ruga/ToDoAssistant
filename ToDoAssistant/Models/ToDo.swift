@@ -23,6 +23,8 @@ class ToDo: Comparable {
     var priority: Int?
     var completed: Bool?
     var dueDate: Date?
+    var reminderTime: Date?
+    var reminderEnabled: Bool?
     var tags: [Tag]?
 
     // Computed properties to easily get and set without optional manipulation.
@@ -45,6 +47,14 @@ class ToDo: Comparable {
     var toDoDueDate: Date {
         get { dueDate ?? .distantFuture }
         set { dueDate = newValue }
+    }
+    var toDoReminderTime: Date {
+        get { reminderTime ?? .now }
+        set { reminderTime = newValue }
+    }
+    var toDoReminderEnabled: Bool {
+        get { reminderEnabled ?? false }
+        set { reminderEnabled = newValue }
     }
     var toDoTags: [Tag] {
         get {

@@ -241,6 +241,22 @@
         }
       }
     },
+    "Check Settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check Settings"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisar configuración"
+          }
+        }
+      }
+    },
     "Complete ToDo" : {
       "localizations" : {
         "en" : {
@@ -658,6 +674,22 @@
         }
       }
     },
+    "Oops!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops!"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Ay!"
+          }
+        }
+      }
+    },
     "Priority" : {
       "localizations" : {
         "en" : {
@@ -686,6 +718,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Re-abrir Tarea"
+          }
+        }
+      }
+    },
+    "Reminder time" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminder time"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hora del recordatorio"
+          }
+        }
+      }
+    },
+    "Reminders" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reminders"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordatorios"
           }
         }
       }
@@ -734,6 +798,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mostrar premios"
+          }
+        }
+      }
+    },
+    "Show reminders" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show reminders"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar recordatorios"
           }
         }
       }
@@ -830,6 +910,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Etiquetas"
+          }
+        }
+      }
+    },
+    "There was a problem setting your notification. Please check you have notifications enabled." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was a problem setting your notification. Please check you have notifications enabled."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hubo un problema configurando tu notificación. Por favor revisa que tengas las notificaciones activadas."
           }
         }
       }
