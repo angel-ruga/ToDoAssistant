@@ -19,10 +19,14 @@ struct ToDoAssistantApp: App {
                 SidebarView(dataController: dataController)
             } content: {
                 ContentView(dataController: dataController)
+#if os(iOS)
                     .navigationPopGestureDisabled(true)
+#endif
             } detail: {
                 DetailView()
+#if os(iOS)
                     .navigationPopGestureDisabled(true)
+#endif
             }
             .environment(\.modelContext, dataController.modelContext)
             .environment(dataController)

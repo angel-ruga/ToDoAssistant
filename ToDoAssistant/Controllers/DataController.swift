@@ -75,7 +75,9 @@ class DataController {
         }
         fetchTags()
 #if DEBUG
+#if os(iOS)
         UIView.setAnimationsEnabled(false)
+#endif
         if CommandLine.arguments.contains("enable-testing") {
             self.deleteAll()
         }

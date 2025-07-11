@@ -22,9 +22,11 @@ struct Filter: Identifiable, Hashable {
     }
 
     /// A filter with all ToDos
+    @MainActor
     static var all = Filter(id: UUID(), name: "All ToDos", icon: "tray")
 
     /// A filter with all ToDos with due date in less that 7 days from now
+    @MainActor
     static var soon = Filter(id: UUID(), name: "ToDos due soon", icon: "clock", maxDueDate: .now.addingTimeInterval(86400 * 7)) // swiftlint:disable:this line_length
 
     func hash(into hasher: inout Hasher) {

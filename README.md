@@ -1,8 +1,6 @@
 # ToDoAssistant
 
-ToDoAssistant is an app that lets you keep track of pending tasks ("ToDos"), letting you establish tags, due date, priority, description and even setting notifications for each one.
-
-It is available for iOS, iPadOS, macOS, watchOS and visionOS.
+ToDoAssistant is an iOS app that lets you keep track of pending tasks ("ToDos"), letting you establish tags, due date, priority, description and even setting notifications for each one.
 
 It is written on Swift 6, using SwiftUI
 

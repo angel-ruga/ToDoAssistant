@@ -92,7 +92,9 @@ struct ContentViewToolbar: View {
             Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
                 .symbolVariant(dataController.filterEnabled ? .fill : .none)
         }
+#if !os(macOS)
         .menuActionDismissBehavior(.disabled)
+#endif
     }
 }
 

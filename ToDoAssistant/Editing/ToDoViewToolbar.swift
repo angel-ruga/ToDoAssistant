@@ -20,11 +20,7 @@ struct ToDoViewToolbar: View {
 
     var body: some View {
         Menu {
-            Button {
-                UIPasteboard.general.string = toDo.toDoTitle
-            } label: {
-                Label("Copy ToDo Title", systemImage: "doc.on.doc")
-            }
+            Button("Copy ToDo Title", systemImage: "doc.on.doc", action: copyToClipboard)
 
             Button(action: toggleCompleted) {
                 Label(openCloseButtonText, systemImage: "bubble.left.and.exclamationmark.bubble.right")
@@ -79,6 +75,15 @@ struct ToDoViewToolbar: View {
                 // playing haptics didn't work, but that's okay
             }
         }
+    }
+
+    func copyToClipboard() {
+        #if os(iOS)
+        UIPasteboard.general.string = toDo.toDoTitle
+        #else
+        NSPasteboard.general.prepareForNewContents()
+        NSPasteboard.general.setString(toDo.toDoTitle, forType: .string)
+        #endif
     }
 }
 

@@ -27,7 +27,7 @@ struct ContentView: View {
         .searchable(text: $viewModel.filterText, prompt: "Filter ToDos")
         .toolbar(content: ContentViewToolbar.init)
         .navigationTitle("ToDos")
-        .navigationBarTitleDisplayMode(.inline)
+        .inlineNavigationBar()
     }
 }
 

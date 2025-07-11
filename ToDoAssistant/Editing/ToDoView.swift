@@ -80,7 +80,13 @@ struct ToDoView: View {
             ToDoViewToolbar(toDo: toDo)
         }
         .alert("Oops!", isPresented: $showingNotificationsError) {
+            #if os(macOS)
+            SettingsLink {
+                Text("Check Settings")
+            }
+            #else
             Button("Check Settings", action: showAppSettings)
+            #endif
             Button("Cancel", role: .cancel) { }
         } message: {
             Text("There was a problem setting your notification. Please check you have notifications enabled.")
@@ -93,6 +99,7 @@ struct ToDoView: View {
         }
     }
 
+#if os(iOS)
     func showAppSettings() {
         guard let settingsURL = URL(string: UIApplication.openNotificationSettingsURLString) else {
             return
@@ -100,6 +107,7 @@ struct ToDoView: View {
 
         openURL(settingsURL)
     }
+#endif
 
     func updateReminder() {
         dataController.removeReminders(for: toDo)

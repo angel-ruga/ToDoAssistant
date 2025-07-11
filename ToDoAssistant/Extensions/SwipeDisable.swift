@@ -5,6 +5,7 @@
 //  Created by Angel Efrain Ruiz Garcia on 08/07/25.
 //
 
+#if os(iOS)
 import Foundation
 import SwiftUI
 
@@ -38,3 +39,4 @@ public extension View {
         }
     }
 }
+#endif
