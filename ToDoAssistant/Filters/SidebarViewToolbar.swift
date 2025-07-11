@@ -36,4 +36,5 @@ struct SidebarViewToolbar: View {
 
 #Preview {
     SidebarViewToolbar()
+        .environment(DataController.preview)
 }

@@ -12,10 +12,11 @@ struct UserFilterRow: View {
     var filter: Filter
     var rename: (Filter) -> Void
     var delete: (Filter) -> Void
+    @Environment(DataController.self) private var dataController
 
     var body: some View {
         NavigationLink(value: filter) {
-            Label(filter.name, systemImage: filter.icon)
+            Label(filter.tag?.name ?? "No name", systemImage: filter.icon)
                 .badge(filter.activeToDosCount)
                 .contextMenu {
                     Button {
@@ -38,4 +39,5 @@ struct UserFilterRow: View {
 
 #Preview {
     UserFilterRow(filter: Filter.all, rename: {_ in}, delete: {_ in})
+        .environment(DataController.preview)
 }

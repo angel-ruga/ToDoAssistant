@@ -26,4 +26,5 @@ struct DetailView: View {
 
 #Preview {
     DetailView()
+        .environment(DataController.preview)
 }

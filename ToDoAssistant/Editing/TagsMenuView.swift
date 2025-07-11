@@ -48,4 +48,5 @@ struct TagsMenuView: View {
 
 #Preview {
     TagsMenuView(toDo: ToDo.example)
+        .environment(DataController.preview)
 }

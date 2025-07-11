@@ -59,7 +59,7 @@ extension SidebarView {
 
         /// Finishes the process of renaming the Tag model object contained in the filer
         func completeRename() {
-            tagToRename?.name = tagName
+            tagToRename?.tagName = tagName
             dataController.save()
         }
     }

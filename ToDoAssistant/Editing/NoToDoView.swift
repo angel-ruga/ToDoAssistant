@@ -22,4 +22,5 @@ struct NoToDoView: View {
 
 #Preview {
     NoToDoView()
+        .environment(DataController.preview)
 }

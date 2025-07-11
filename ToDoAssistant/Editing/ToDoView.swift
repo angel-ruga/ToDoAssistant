@@ -127,4 +127,5 @@ struct ToDoView: View {
 
 #Preview {
     ToDoView(toDo: .example)
+        .environment(DataController.preview)
 }

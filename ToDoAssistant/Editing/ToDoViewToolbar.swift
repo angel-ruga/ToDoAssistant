@@ -89,4 +89,5 @@ struct ToDoViewToolbar: View {
 
 #Preview {
     ToDoViewToolbar(toDo: ToDo.example)
+        .environment(DataController.preview)
 }
