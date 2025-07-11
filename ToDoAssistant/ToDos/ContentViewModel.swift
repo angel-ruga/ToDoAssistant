@@ -14,11 +14,19 @@ extension ContentView {
     @Observable @MainActor
     class ViewModel {
         var dataController: DataController
-        
-        
+
         /// Returns true if it is acceptable to reques for a review
         var shouldRequestReview: Bool {
-            dataController.count(for: FetchDescriptor<Tag>()) >= 5
+            if dataController.count(for: FetchDescriptor<Tag>()) >= 5 {
+                let reviewRequestCount = UserDefaults.standard.integer(forKey: "reviewRequestCount")
+                  UserDefaults.standard.set(reviewRequestCount + 1, forKey: "reviewRequestCount")
+
+                  if reviewRequestCount.isMultiple(of: 10) {
+                      return true
+                  }
+            }
+
+            return false
         }
 
         init(dataController: DataController) {

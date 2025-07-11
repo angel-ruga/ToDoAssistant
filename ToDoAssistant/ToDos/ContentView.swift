@@ -32,7 +32,7 @@ struct ContentView: View {
         .navigationTitle("ToDos")
         .inlineNavigationBar()
     }
-    
+
     func askForReview() {
         if viewModel.shouldRequestReview {
             requestReview()
